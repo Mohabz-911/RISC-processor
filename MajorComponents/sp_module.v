@@ -1,30 +1,25 @@
 `include"register_32bit.v"
-`include "SP_ALU_32bit.v"
-`include "mux_2x1_32bit.v"
+`include "sp_alu_32bit.v"
+
 module sp_module(
     input CLK,
     input Enable,
-    input popSignal,
-    input PushSignal,
-    input PreviousPoPSignal,
     input Reset,
+    input [1:0]SP_OP,
+    input PreviousOpSignal,
     output[31:0] SPtoBuffer
 );
 
 wire [31:0] InSPReg,Out,Result;
 
-wire [1:0] SP_OP;
 
+register_32bit SP_Reg(Enable,CLK,InSPReg,Reset,Out);
 
-assign SP_OP={popSignal.PushSignal};
+sp_alu_32bit ALU_Inst(Out,SP_OP,Result);
 
-register_32bit SP_Reg(Enable,CLK,Reset,InSPReg,Out);
+mux_2x1_32bit MuxAfterALu(.I0(Out),.I1(Result),.S(SP_OP[1]),.O(SPtoBuffer));
 
-SP_ALU_32bit ALU_Inst(Out,SP_OP,Result);
-
-mux_2x1_32bit MuxAfterALu(.I0(Out),.I1(Result),.S(popSignal),.O(SPtoBuffer));
-
-mux_2x1_32bit MuxBeforeSP(.I0(Out),.I1(Result),.S(PreviousPoPSignal),.O(InSPReg));
+mux_2x1_32bit MuxBeforeSP(.I0(Out),.I1(Result),.S(PreviousOpSignal),.O(InSPReg));
 
 
 

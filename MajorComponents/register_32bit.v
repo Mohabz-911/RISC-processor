@@ -2,7 +2,7 @@ module register_32bit(
     input Enable,
     input Clk,
     input[31:0] InData,
-    input Reset;
+    input Reset,
     output[31:0] OutData
 );
 

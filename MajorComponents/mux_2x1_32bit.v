@@ -1,4 +1,4 @@
-`include "mux_2x1_1bit.v"
+
 
 module mux_2x1_32bit (I0, I1, S, O);
 input [31:0]    I0, I1;
