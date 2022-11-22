@@ -18,12 +18,12 @@ initial begin
   MemoryRead = 1'b0;
   
 
-  #20
+  #1
 
   Address = 32'b00000000000000000000000000000001;
   MemoryRead = 1'b1;
   MemoryWrite = 1'b0;
-  #20
+  #1
 
    if(out == 16'b1111111111111111)
     $display("SUCCESS: Address = %b,  out = %b", Address,  out);
@@ -31,18 +31,18 @@ initial begin
     $display("FAILED: Address = %b,  out = %b", Address,  out);
   
 
-  #20
+  #1
   DataIn = 16'b0000110111010101;
   Address = 32'b00000000000000000000000000000001;
   MemoryWrite = 1'b1;
   MemoryRead = 1'b0;
 
-#20
+#1
 
   Address = 32'b00000000000000000000000000000001;
   MemoryRead = 1'b1;
   MemoryWrite = 1'b0;
-  #20
+  #1
 
    if(out == 16'b0000110111010101)
     $display("SUCCESS: Address = %b,  out = %b", Address,  out);
@@ -51,18 +51,18 @@ initial begin
   
   
 
-  #20
+  #1
   DataIn = 16'b0000110111011111;
   Address = 32'b00000000000000000000000000001000;
   MemoryWrite = 1'b1;
   MemoryRead = 1'b0;
 
-#20
+#1
 
   Address = 32'b00000000000000000000000000001000;
   MemoryRead = 1'b1;
   MemoryWrite = 1'b0;
-  #20
+  #1
 
    if(out == 16'b0000110111011111)
     $display("SUCCESS: Address = %b,  out = %b", Address,  out);
@@ -71,18 +71,18 @@ initial begin
   
   
 
-  #20
+  #1
   DataIn = 16'b1110101101011010;
   Address = 32'b00000000000000000000011111111111;
   MemoryWrite = 1'b1;
   MemoryRead = 1'b0;
 
-#20
+#1
 
   Address = 32'b00000000000000000000011111111111;
   MemoryRead = 1'b1;
    MemoryWrite = 1'b0;
-   #20
+   #1
 
    if(out == 16'b1110101101011010)
     $display("SUCCESS: Address = %b,  out = %b", Address,  out);
@@ -90,12 +90,12 @@ initial begin
     $display("FAILED: Address = %b,  out = %b", Address,  out);
 
 
-    #20
+    #1
 
   Address = 32'b00000000000000000000000000001000;
   MemoryRead = 1'b1;
   MemoryWrite = 1'b0;
-  #20
+  #1
 
    if(out == 16'b0000110111011111)
     $display("SUCCESS: Address = %b,  out = %b", Address,  out);
