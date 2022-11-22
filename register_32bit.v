@@ -1,12 +1,14 @@
-module register_16bit(
+module register_32bit(
     input Enable,
     input Clk,
-    input Reset,
-    input[15:0] InData,
-    output[15:0] OutData
+    input[31:0] InData,
+    input Reset;
+    output[31:0] OutData
 );
 
-reg[15:0] Data;
+
+
+reg[31:0] Data;
 assign OutData=Data;
 
 always @(posedge Clk)
@@ -19,7 +21,5 @@ begin
         Data<=InData;
     end
 end
-
-
 
 endmodule
