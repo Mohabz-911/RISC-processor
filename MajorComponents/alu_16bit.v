@@ -1,4 +1,4 @@
-module ALU(
+module alu_16bit(
     input[15:0] FirstOperand ,
     input[15:0] SeconedOperand,
     input[6:0] OP, 
@@ -10,13 +10,12 @@ module ALU(
 reg [16:0] TempResult;
 
 always @(*)begin
-TempResult[16]=0;
 case (OP)
     7'b0000_001:TempResult = FirstOperand + SeconedOperand; 
     7'b0000_010:TempResult = FirstOperand - SeconedOperand;
-    7'b0000_100:TempResult[15:0] = FirstOperand & SeconedOperand;
-    7'b0001_000:TempResult[15:0] = FirstOperand | SeconedOperand;
-    7'b0010_000:TempResult[15:0] = ~ FirstOperand;
+    7'b0000_100:TempResult = FirstOperand & SeconedOperand;
+    7'b0001_000:TempResult = FirstOperand | SeconedOperand;
+    7'b0010_000:TempResult = (~FirstOperand)&17'hFFFF;
     7'b0100_000:TempResult = FirstOperand >> SeconedOperand;
     7'b1000_000:TempResult = FirstOperand << SeconedOperand;
        
@@ -27,9 +26,6 @@ assign ZeroFlag = !Result;
 assign Result = TempResult[15:0];
 assign CarryFlag = TempResult[16];
 assign NegativeFlag = TempResult[15];
-
-
-
 
 
 endmodule
