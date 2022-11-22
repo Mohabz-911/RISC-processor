@@ -13,7 +13,12 @@ append_zeros m(.InputData(MemoryInput[27:12]), .OutputData(out));
 
 wire [31:0] OutFromMux; 
 
-mux_2x1_32bit n(out, MemoryInput[75:44], MemoryInput[3] | MemoryInput[2], OutFromMux);
+wire SP ;
+
+assign SP = MemoryInput[3] | MemoryInput[2];
+
+
+mux_2x1_32bit n(out, MemoryInput[75:44],  SP, OutFromMux);
 
 
 wire [15:0] MemoryDataOut; 
@@ -22,6 +27,8 @@ data_memory z(.DataIn(MemoryInput[43:28]), .Address(OutFromMux), .MemoryRead(Mem
 
 
 assign MemoryOutput = {MemoryDataOut, MemoryInput[27:12], MemoryInput[11:9], MemoryInput[8:6], MemoryInput[3:2], MemoryInput[1:0]};
+
+
 
 endmodule
 

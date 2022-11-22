@@ -10,7 +10,7 @@ output wire [15:0] DataOut;
 reg [15:0] Memory [0:2047];
 
 
-always @(DataIn) begin 
+always @(*) begin 
     if (MemoryWrite == 1'b1) begin
         Memory[Address] <= DataIn;
     end
