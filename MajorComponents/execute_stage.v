@@ -12,12 +12,11 @@ module  execute_stage (
     input Enable 
     );
 
-    wire [15:0] RsrsValue, RdstValue;
-
     wire[15:0] FirstOperand,SeconedOperand,ALU_Result;
 
-    wire ImOrSingleOp;
-   
+    
+
+
     mux_2x1_16bit Mux1ForDest(.I0(In[68:53]),.I1(16'h0),.S(In[3]),.O(FirstOperand));
 
     mux_2x1_16bit Mux2ForSrc(.I0(In[52:37]),.I1(In[30:15]),.S(In[1]),.O(SeconedOperand));
