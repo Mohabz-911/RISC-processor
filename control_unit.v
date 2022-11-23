@@ -1,6 +1,6 @@
 module control_unit(In,Output);
 input [15:0]In;
-output [6:0]Output;
+output [7:0]Output;
 
 // assign Output[0]= ~In[15] && In[14] && In[13] && In[11] ;//meme read-out
 // assign Output[1]= ~In[15] && In[14] && In[13] && ~In[11] ;//mem write-in
@@ -31,6 +31,15 @@ In[15:11]==5'b11100||
 In[15:11]==5'b00111||
 In[15:11]==5'b10100||
 In[15:11]==5'b10101)?1:0;//immmediate or single operand inst
+assign Output[7]=(In[15:14]==2'b10||
+In[15:11]==5'b01101||
+In[15:11]==5'b01111||
+
+In[15:11]==5'b00101||
+In[15:11]==5'b00111||
+In[15:11]==5'b00010||
+In[15:11]==5'b00000
+)?1:0;
 
 endmodule
 
