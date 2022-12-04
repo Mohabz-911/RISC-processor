@@ -1,0 +1,37 @@
+
+ADD R2, R1      F D E M W
+JMP R2            F D E M W
+
+
+
+
+
+
+ADD R2, R1      F D E M W
+ADD R3, R1        F D E M W
+JMP R2              F D E M W
+
+
+
+
+// elli abli LDD w byst5dm nfs el Register bta3i
+                1 2 3
+LDD R2, R1      F D E M W
+JMP R2            F D D E M W
+ADD R3, R5          F F D E M W
+
+
+LDD R2, R1      F D E M W
+ADD R3, R5        F D E M W
+JMP R2              F D E M W
+
+
+LDD R2, R1      F D E M W               
+ADD R2, R2        F D D E M W           // elli abli LDD w byst5dm nfs el Register bta3i
+JMP R2              F F D E M W         // if: el execute WB signal high, na5odha 3latol         else: shof eltanya
+                                        // kol da 3la eftrad eno nfs el address
+
+LDD R2, R1      F D E M W
+ADD R3, R2        F D D E M W
+JMP R2              F F D E M W
+// Potential problem: Forwarding unit will work in this case (rbna yostorrrr)
