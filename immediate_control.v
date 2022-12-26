@@ -1,8 +1,6 @@
-`include "mux_2x1_16bit.v"
-
-module immediate_control(Inp,Last,Out);
+module immediate_control(Inp,LDM,Out);
 input [15:0]Inp;
-input [15:0]Last;
+input LDM;
 output [15:0]Out;
 
 
@@ -13,7 +11,7 @@ wire [15:0]outputThree;
 
 wire sel1,sel2,sel3,sel4;
 
-assign sel1=(Inp[15:12]==4'b1010)?1:0;//shift or not
+assign sel1=(Inp[15:12]==4'b1010 || Inp[15:11] == 5'b01110)?1:0;//shift or LDD
 
 assign sel2=(Inp[15:11]==5'b00010||Inp[15:11]==5'b10000)?1:0;//inc or not
 
@@ -27,7 +25,6 @@ assign sel3=(Inp[15:11]==5'b00101)?1:0;
 
 
 
-assign sel4=(Last[15:11]==5'b00111)?1:0;
 
 mux_2x1_16bit m1({8'b0,Inp[7:0]},
 {11'b0,Inp[4:0]},
@@ -52,7 +49,7 @@ outputThree
 
 mux_2x1_16bit m4(outputThree,
 Inp,
-sel4,
+LDM,
 Out
 );
 

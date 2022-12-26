@@ -1,0 +1,41 @@
+
+Integation:         [Mohab]
+- Prepare the highest lvl module
+- Buffers
+- Each stage interface
+
+Fetch stage:
+- fetch circuit
+
+Control Unit:       [Doaa]
+- ALU control unit
+- Immediate signal CU
+- Memory ctrl
+- Stack signal (Push or pop)
+- Ldd or pop
+- LDM controller
+
+Execute Stage:      [Fathi]
+- ALU
+    - ADD
+    - SUB
+    - AND
+    - OR
+    - NOT
+    - SHR
+    - SHL
+- SP circuit
+
+Memory stage:       [Romee]
+- Data memory
+- Append zeros
+- Memory circuit
+
+Writeback stage:       [Romee]
+- Writeback circuit
+
+Design:
+- Jump instructions
+
+
+- Register file testing (Fathi)

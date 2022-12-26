@@ -1,0 +1,30 @@
+`include "mux_2x1_1bit.v"
+`include "mux_2x1_16bit.v"
+`include "mux_2x1_32bit.v"
+`include "mux_8x3_1bit.v"  
+`include "decoder_3x8.v"
+
+`include "register_16bit.v"
+`include "register_16bit_f.v"
+`include "register_32bit_PC.v"
+`include "register_32bit_SP.v"
+`include "register_file.v"
+
+`include "sp_alu_32bit.v"
+`include "sp_module.v"
+`include "alu_16bit.v"
+`include "alu_control_unit.v"
+
+`include "data_memory.v"
+`include "instruction_memory.v"
+`include "append_zeros.v"
+
+`include "immediate_control.v"
+`include "control_unit.v"
+
+`include "buffer.v"
+`include "fetch_stage.v"
+`include "decode_stage.v"
+`include "execute_stage.v"
+`include "memory_stage.v"
+`include "writeback_stage.v"
