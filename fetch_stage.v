@@ -8,6 +8,9 @@ wire [31:0] PC_out, PC_plus;
 
 instruction_memory im(.Address(PC_out), .Data(Out));
 
+
+// handle_jumps m(.jmp(jmp), .jc(jc) , .cf(cf) , .jn(jn) , .nf(nf) , .jz(jz) , .zf(zf) , .jmp_signal(jmp_signal));
+
 register_32bit_PC PC(.Rst(Rst), .Clk(Clk), .InData(PC_plus), .OutData(PC_out));
 
 //To be edited
