@@ -23,7 +23,7 @@ rst=0;
 #10
 
  $display("interrupt  int = %b",  intSignal);
-  if(out == 4'b0001)
+  if(out == 4'b0000)
     $display("1 SUCCESS:  out = %b",  out);
   else
     $display("1 FAILED:  out = %b", out);
@@ -41,26 +41,31 @@ rst=0;
     $display("1 FAILED:  out = %b", out);
 
 #20
-      if(out == 4'b0011)
+      if(out == 4'b0001)
     $display("1 SUCCESS:  out = %b",  out);
   else
     $display("1 FAILED:  out = %b", out);
 
 
 #20
-      if(out == 4'b0111)
+      if(out == 4'b0001)
     $display("1 SUCCESS:  out = %b",  out);
   else
     $display("1 FAILED:  out = %b", out);
 
 #20
-         if(out == 4'b1000)
+         if(out == 4'b0010)
+    $display("1 SUCCESS:  out = %b",  out);
+  else
+    $display("1 FAILED:  out = %b", out);
+
+
+#20
+         if(out == 4'b0110)
     $display("1 SUCCESS:  out = %b",  out);
   else
     $display("1 FAILED:  out = %b", out);
 intSignal=1'b0;
-
-
 $finish;
 end
 
