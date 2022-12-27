@@ -33,8 +33,14 @@ wire [3:0]  LUCU;
 assign FetchInput[57:42] = In;
 assign FetchInput[41:26] = o_EX_MEM[50:35]; //Rsrc value
 assign FetchInput[25:19] = o_EX_MEM[105:99];//jump signals
-assign LUCU[3] = o_ID_EX[2];//mem read
-assign LUCU[2:0] = o_ID_EX[43:41];//Rdst address
+assign ForwardBus[15:0] = o_MEM_WB[26:11];  //Memory Rdst value (ALU output)
+assign ForwardBus[18:16] = o_MEM_WB[10:8];  //Memory Rdst address
+assign ForwardBus[19] = o_MEM_WB[0];        //Memory WB
+assign ForwardBus[35:20] = o_EX_MEM[34:19]; //Execute Rdst value (ALU output)
+assign ForwardBus[38:36] = o_EX_MEM[15:13]; //Execute Rdst address
+assign ForwardBus[39] = o_EX_MEM[0];        //Execute WB
+assign LUCU[3] = o_ID_EX[2];                //mem read
+assign LUCU[2:0] = o_ID_EX[43:41];          //Rdst address
 
 fetch_stage f(.In(FetchInput), .Out(i_IF_ID), .Clk(Clk), .Rst(Rst));
 
@@ -42,7 +48,7 @@ decode_stage d(.In({o_IF_ID,Int,LUCU}), .Out({FetchInput[0],i_ID_EX}), .writebac
 
 execute_stage e(.In(o_ID_EX[126:25]), .Ctrl(o_ID_EX[24:0]), .Fwd(ForwardBus), .Out(i_EX_MEM), .CLK(Clk), .Reset(Rst));
 
-memory_stage m(.MemoryInput(o_EX_MEM[98:13]), .Ctrl(o_EX_MEM[12:0]), .MemoryOutput(i_MEM_WB));
+memory_stage m(.MemoryInput(o_EX_MEM[98:13]), .Ctrl(o_EX_MEM[12:0]), .MemoryOutput(i_MEM_WB), .Reset(Rst), .CLK(Clk));
 
 writeback_stage w(.In(o_MEM_WB), .Out(WritebackOutput));
 
