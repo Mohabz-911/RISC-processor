@@ -1,0 +1,220 @@
+/*
+In: 58-bits
+16-bit: In port
+16-bit: Rdst
+7-bit:  Jump signals (JMP - JC - CF - JN - NF - JZ - ZF)
+16-bit: Address to jump on from in port
+2-bit:  Control signals        WHAT??????
+1-bit:  PC increment stall signal
+
+-------------------------------------------------
+
+Out: 64-bits
+
+16-bit: In port
+32-bit: Address of next instruction
+16-bit: Instruction
+*/
+fetch_stage(In, Out, Clk, Rst);
+
+
+/****************************************************************************/
+//Decode Stage
+
+/*
+writeback: 20-bits
+
+1-bit:  WB signal
+16-bit: Writeback value
+3-bit:  Writeback Address
+
+--------------------------------------------------
+
+In: 69-bits
+
+16-bit: In port
+32-bit: Address of next instruction
+16-bit: Instruction
+1-bit:  Interrupt signal
+//For the LUCU
+1-bit:  Memory read signal
+3-bit:  Rdst Address
+
+--------------------------------------------------
+
+Out: (128)-bits
+1-bit:  PC increment stall signal
+16-bit: In port
+32-bit: Address of next instruction
+16-bit: Rsrc value
+16-bit: Rdst value
+3-bit:  Rsrc Address
+3-bit:  Rdst Address
+16-bit: Imm value
+7-bit:  ALU-Control
+1-bit:  ALU_enable
+1-bit:  Immediate value or single-op instructions except CALL
+1-bit:  STD
+1-bit:  JMP
+1-bit:  Flags Protection
+1-bit:  Previous stack op
+1-bit:  PUSH
+1-bit:  POP
+1-bit:  RET
+1-bit:  RTI
+1-bit:  LDD
+1-bit:  IN
+1-bit:  OUT
+1-bit:  second iteration
+1-bit:  CALL
+1-bit:  Memory read
+1-bit:  Memory write
+1-bit:  WB signal 
+*/
+decode_stage (In, Out, writeback, Rst, Clk);
+
+
+/****************************************************************************/
+//Execute stage
+
+/*
+In: (102)-bits
+16-bit: In port
+32-bit: Address of next instruction
+16-bit: Rsrc value
+16-bit: Rdst value
+3-bit:  Rsrc Address
+3-bit:  Rdst Address
+16-bit: Imm value
+
+-----------------------------------------------
+
+Ctrl: 25-bits
+7-bit:  ALU-Control
+1-bit:  ALU_enable
+1-bit:  Immediate value or single-op instructions except CALL
+1-bit:  STD
+1-bit:  JMP
+1-bit:  Flags Protection
+1-bit:  Previous stack op
+1-bit:  PUSH
+1-bit:  POP
+1-bit:  RET
+1-bit:  RTI
+1-bit:  LDD
+1-bit:  IN
+1-bit:  OUT
+1-bit:  second iteration
+1-bit:  CALL
+1-bit:  Memory read
+1-bit:  Memory write
+1-bit:  WB signal 
+
+----------------------------------------------
+Fwd: 40-bits        (These are inputs)
+1-bit:  Execute Rdst WB
+3-bit:  Execute Rdst Address
+16-bit: Execute Rdst value
+1-bit:  Memory Rdst WB
+3-bit:  Memory Rdst Address
+16-bit: Memory Rdst value
+
+----------------------------------------------
+
+Out: 106-bits
+7-bit:  Jump signals (JMP - JC - CF - JN - NF - JZ - ZF)
+16-bit: In port
+32-bit: Address of next instruction
+16-bit: Rsrc value
+16-bit: ALU output
+3-bit:  Rsrc Address
+3-bit:  Rdst Address
+1-bit:  Previous stack op
+1-bit:  PUSH
+1-bit:  POP
+1-bit:  RET
+1-bit:  RTI
+1-bit:  LDD
+1-bit:  IN
+1-bit:  OUT
+1-bit:  second iteration
+1-bit:  CALL
+1-bit:  Memory read
+1-bit:  Memory write
+1-bit:  WB signal  
+*/
+execute_stage (In, Ctrl, Fwd, Out, Reset, CLK);
+
+
+/****************************************************************************/
+//Memory stage
+
+/*
+MemoryInput: 86-bits
+16-bit: In port
+32-bit: Address of next instruction
+16-bit: Rsrc value
+16-bit: ALU output
+3-bit:  Rsrc Address
+3-bit:  Rdst Address
+
+----------------------------------------------
+
+Ctrl: 13-bits
+1-bit:  Previous stack op
+1-bit:  PUSH
+1-bit:  POP
+1-bit:  RET
+1-bit:  RTI
+1-bit:  LDD
+1-bit:  IN
+1-bit:  OUT
+1-bit:  second iteration
+1-bit:  CALL
+1-bit:  Memory read
+1-bit:  Memory write
+1-bit:  WB signal 
+
+-----------------------------------------------
+
+MemoryOutput: 58-bits
+16-bit: In port
+16-bit: Memory data out
+16-bit: ALU output
+3-bit:  Rdst Address
+1-bit:  POP
+1-bit:  RET
+1-bit:  RTI
+1-bit:  LDD
+1-bit:  IN
+1-bit:  OUT
+1-bit:  WB signal 
+*/
+memory_stage (MemoryInput, Ctrl, MemoryOutput);
+
+
+/****************************************************************************/
+//Writeback stage
+
+/*
+In: 58-bits
+16-bit: In port
+16-bit: Memory data out
+16-bit: ALU output
+3-bit:  Rdst Address
+1-bit:  POP
+1-bit:  RET
+1-bit:  RTI
+1-bit:  LDD
+1-bit:  IN
+1-bit:  OUT
+1-bit:  WB signal
+
+--------------------------------------------
+
+Out: 20-bits
+16-bit: Writeback value
+3-bit:  Rdst Address
+1-bit:  WB signal
+*/
+writeback_stage(In, Out);
