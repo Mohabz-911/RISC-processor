@@ -4,6 +4,7 @@ output [19:0]   Out;
 
 wire [15:0] WBValue;
 
+reg [15:0] outPort;
 
 select_wb_value s(.DataOut(In[41:26]) ,
                  .AluOutput(In[25:10]) , 
@@ -13,6 +14,7 @@ select_wb_value s(.DataOut(In[41:26]) ,
                  .WBValue(WBValue));
 
 
+assign outPort = (In[1] == 1'b1) ? In[25:10] : outPort;
 assign Out = {WBValue , In[9:7] , In[0]};                 
 // wire selector;
 // assign selector = In[0] | In[2];
