@@ -1,0 +1,42 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_0000011b8dd667a0 .scope module, "memory_stage" "memory_stage" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 3 "Rsc_IFID";
+    .port_info 1 /INPUT 3 "Rdst_IDEX";
+    .port_info 2 /INPUT 1 "memo_read";
+    .port_info 3 /OUTPUT 1 "stall_signal";
+o0000011b8dca7188 .functor BUFZ 1, C4<z>; HiZ drive
+L_0000011b8dcefc48 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+L_0000011b8dd671e0 .functor XNOR 1, o0000011b8dca7188, L_0000011b8dcefc48, C4<0>, C4<0>;
+L_0000011b8dd67080 .functor AND 1, L_0000011b8dd671e0, L_0000011b8dca10d0, C4<1>, C4<1>;
+o0000011b8dca6fd8 .functor BUFZ 3, C4<zzz>; HiZ drive
+v0000011b8dd66930_0 .net "Rdst_IDEX", 2 0, o0000011b8dca6fd8;  0 drivers
+o0000011b8dca7008 .functor BUFZ 3, C4<zzz>; HiZ drive
+v0000011b8dd669d0_0 .net "Rsc_IFID", 2 0, o0000011b8dca7008;  0 drivers
+v0000011b8dd66a70_0 .net/2u *"_ivl_0", 0 0, L_0000011b8dcefc48;  1 drivers
+L_0000011b8dcefcd8 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0000011b8dd6e320_0 .net/2s *"_ivl_10", 1 0, L_0000011b8dcefcd8;  1 drivers
+v0000011b8dd6e3c0_0 .net *"_ivl_12", 1 0, L_0000011b8dca12b0;  1 drivers
+v0000011b8dd6e460_0 .net *"_ivl_2", 0 0, L_0000011b8dd671e0;  1 drivers
+v0000011b8dd6e500_0 .net *"_ivl_4", 0 0, L_0000011b8dca10d0;  1 drivers
+v0000011b8dd6e5a0_0 .net *"_ivl_7", 0 0, L_0000011b8dd67080;  1 drivers
+L_0000011b8dcefc90 .functor BUFT 1, C4<01>, C4<0>, C4<0>, C4<0>;
+v0000011b8dd6e640_0 .net/2s *"_ivl_8", 1 0, L_0000011b8dcefc90;  1 drivers
+v0000011b8dd6e770_0 .net "memo_read", 0 0, o0000011b8dca7188;  0 drivers
+v0000011b8dca1210_0 .net "stall_signal", 0 0, L_0000011b8dca0db0;  1 drivers
+L_0000011b8dca10d0 .cmp/eq 3, o0000011b8dca7008, o0000011b8dca6fd8;
+L_0000011b8dca12b0 .functor MUXZ 2, L_0000011b8dcefcd8, L_0000011b8dcefc90, L_0000011b8dd67080, C4<>;
+L_0000011b8dca0db0 .part L_0000011b8dca12b0, 0, 1;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "load_use_case.v";

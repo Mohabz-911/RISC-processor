@@ -16,7 +16,7 @@ module  execute_stage (
 
     alu_16bit ALU_inst(.FirstOperand(FirstOperand),.SeconedOperand(SeconedOperand),.OP(In[15:9]),.Result(Out[27:12]),.ZeroFlag(),.CarryFlag(),.NegativeFlag());
 
-    sp_module SP_Block(.CLK(CLK),.Reset(Reset),.SP_OP(In[6:5]),.PreviousOpSignal(1'b0),.SPtoBuffer(Out[75:44]));
+    // sp_module SP_Block(.CLK(CLK),.Reset(Reset),.SP_OP(In[6:5]),.PreviousOpSignal(1'b0),.SPtoBuffer(Out[75:44]));
                                                                     //YAMAAAAAAAA
 
     //RSRC VALUE

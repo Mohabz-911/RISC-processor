@@ -1,0 +1,76 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_000001e6b62cacb0 .scope module, "load_use_case_test" "load_use_case_test" 2 3;
+ .timescale 0 0;
+v000001e6b63144f0_0 .var "a", 2 0;
+v000001e6b63143b0_0 .var "b", 2 0;
+v000001e6b6313a50_0 .var "memoRead", 0 0;
+v000001e6b6313af0_0 .net "out", 0 0, L_000001e6b63146d0;  1 drivers
+S_000001e6b6315d40 .scope module, "m" "load_use_case" 2 9, 3 1 0, S_000001e6b62cacb0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 3 "Rsc_IFID";
+    .port_info 1 /INPUT 3 "Rdst_IDEX";
+    .port_info 2 /INPUT 1 "memo_read";
+    .port_info 3 /OUTPUT 1 "stall_signal";
+L_000001e6b635b858 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+L_000001e6b6316150 .functor XNOR 1, v000001e6b6313a50_0, L_000001e6b635b858, C4<0>, C4<0>;
+L_000001e6b62c70c0 .functor AND 1, L_000001e6b6316150, L_000001e6b6313c30, C4<1>, C4<1>;
+v000001e6b62cbe70_0 .net "Rdst_IDEX", 2 0, v000001e6b63143b0_0;  1 drivers
+v000001e6b62cbf10_0 .net "Rsc_IFID", 2 0, v000001e6b63144f0_0;  1 drivers
+v000001e6b6306300_0 .net/2u *"_ivl_0", 0 0, L_000001e6b635b858;  1 drivers
+L_000001e6b635b8e8 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v000001e6b63063a0_0 .net/2s *"_ivl_10", 1 0, L_000001e6b635b8e8;  1 drivers
+v000001e6b6315ed0_0 .net *"_ivl_12", 1 0, L_000001e6b6314270;  1 drivers
+v000001e6b6315f70_0 .net *"_ivl_2", 0 0, L_000001e6b6316150;  1 drivers
+v000001e6b6316010_0 .net *"_ivl_4", 0 0, L_000001e6b6313c30;  1 drivers
+v000001e6b63160b0_0 .net *"_ivl_7", 0 0, L_000001e6b62c70c0;  1 drivers
+L_000001e6b635b8a0 .functor BUFT 1, C4<01>, C4<0>, C4<0>, C4<0>;
+v000001e6b62c66d0_0 .net/2s *"_ivl_8", 1 0, L_000001e6b635b8a0;  1 drivers
+v000001e6b62c6770_0 .net "memo_read", 0 0, v000001e6b6313a50_0;  1 drivers
+v000001e6b6314090_0 .net "stall_signal", 0 0, L_000001e6b63146d0;  alias, 1 drivers
+L_000001e6b6313c30 .cmp/eq 3, v000001e6b63144f0_0, v000001e6b63143b0_0;
+L_000001e6b6314270 .functor MUXZ 2, L_000001e6b635b8e8, L_000001e6b635b8a0, L_000001e6b62c70c0, C4<>;
+L_000001e6b63146d0 .part L_000001e6b6314270, 0, 1;
+    .scope S_000001e6b62cacb0;
+T_0 ;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v000001e6b63144f0_0, 0, 3;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v000001e6b63143b0_0, 0, 3;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001e6b6313a50_0, 0, 1;
+    %delay 20, 0;
+    %vpi_call 2 19 "$display", "stall = %b", v000001e6b6313af0_0 {0 0 0};
+    %delay 20, 0;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v000001e6b63144f0_0, 0, 3;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v000001e6b63143b0_0, 0, 3;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v000001e6b6313a50_0, 0, 1;
+    %delay 20, 0;
+    %vpi_call 2 27 "$display", "stall = %b", v000001e6b6313af0_0 {0 0 0};
+    %delay 20, 0;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v000001e6b63144f0_0, 0, 3;
+    %pushi/vec4 2, 0, 3;
+    %store/vec4 v000001e6b63143b0_0, 0, 3;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v000001e6b6313a50_0, 0, 1;
+    %delay 20, 0;
+    %vpi_call 2 33 "$display", "stall = %b", v000001e6b6313af0_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "load_use_case_test.v";
+    "./load_use_case.v";
