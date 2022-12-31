@@ -1,0 +1,120 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+S_0000015ecde8bde0 .scope module, "handle_jumps_test" "handle_jumps_test" 2 3;
+ .timescale 0 0;
+v0000015ecdf201e0_0 .var "cf", 0 0;
+v0000015ecdf1fba0_0 .var "jc", 0 0;
+v0000015ecdf20280_0 .var "jmp", 0 0;
+v0000015ecdf20460_0 .net "jmp_signal", 0 0, L_0000015ecdf1fa60;  1 drivers
+v0000015ecdf205a0_0 .var "jn", 0 0;
+v0000015ecdf20640_0 .var "jz", 0 0;
+v0000015ecdf1f9c0_0 .var "nf", 0 0;
+v0000015ecdf1f880_0 .var "zf", 0 0;
+S_0000015ecdec79e0 .scope module, "m" "handle_jumps" 2 8, 3 1 0, S_0000015ecde8bde0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "jmp";
+    .port_info 1 /INPUT 1 "jc";
+    .port_info 2 /INPUT 1 "cf";
+    .port_info 3 /INPUT 1 "jn";
+    .port_info 4 /INPUT 1 "nf";
+    .port_info 5 /INPUT 1 "jz";
+    .port_info 6 /INPUT 1 "zf";
+    .port_info 7 /OUTPUT 1 "jmp_signal";
+L_0000015ecdf20848 .functor BUFT 1, C4<1>, C4<0>, C4<0>, C4<0>;
+L_0000015ecde8bf70 .functor XNOR 1, v0000015ecdf20280_0, L_0000015ecdf20848, C4<0>, C4<0>;
+L_0000015ecdec7b70 .functor AND 1, v0000015ecdf1fba0_0, v0000015ecdf201e0_0, C4<1>, C4<1>;
+L_0000015ecde8c780 .functor OR 1, L_0000015ecde8bf70, L_0000015ecdec7b70, C4<0>, C4<0>;
+L_0000015ecded4830 .functor AND 1, v0000015ecdf205a0_0, v0000015ecdf1f9c0_0, C4<1>, C4<1>;
+L_0000015ecded4590 .functor OR 1, L_0000015ecde8c780, L_0000015ecded4830, C4<0>, C4<0>;
+L_0000015ecded4670 .functor AND 1, v0000015ecdf20640_0, v0000015ecdf1f880_0, C4<1>, C4<1>;
+L_0000015ecded4980 .functor OR 1, L_0000015ecded4590, L_0000015ecded4670, C4<0>, C4<0>;
+v0000015ecde8c3f0_0 .net/2u *"_ivl_0", 0 0, L_0000015ecdf20848;  1 drivers
+v0000015ecde86ad0_0 .net *"_ivl_11", 0 0, L_0000015ecded4590;  1 drivers
+v0000015ecde8c490_0 .net *"_ivl_12", 0 0, L_0000015ecded4670;  1 drivers
+v0000015ecde8c530_0 .net *"_ivl_15", 0 0, L_0000015ecded4980;  1 drivers
+L_0000015ecdf20890 .functor BUFT 1, C4<01>, C4<0>, C4<0>, C4<0>;
+v0000015ecde8c5d0_0 .net/2s *"_ivl_16", 1 0, L_0000015ecdf20890;  1 drivers
+L_0000015ecdf208d8 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0000015ecdf1fc40_0 .net/2s *"_ivl_18", 1 0, L_0000015ecdf208d8;  1 drivers
+v0000015ecdf20320_0 .net *"_ivl_2", 0 0, L_0000015ecde8bf70;  1 drivers
+v0000015ecdf203c0_0 .net *"_ivl_20", 1 0, L_0000015ecdf206e0;  1 drivers
+v0000015ecdf20140_0 .net *"_ivl_4", 0 0, L_0000015ecdec7b70;  1 drivers
+v0000015ecdf1fec0_0 .net *"_ivl_7", 0 0, L_0000015ecde8c780;  1 drivers
+v0000015ecdf20500_0 .net *"_ivl_8", 0 0, L_0000015ecded4830;  1 drivers
+v0000015ecdf1ff60_0 .net "cf", 0 0, v0000015ecdf201e0_0;  1 drivers
+v0000015ecdf1fce0_0 .net "jc", 0 0, v0000015ecdf1fba0_0;  1 drivers
+v0000015ecdf20000_0 .net "jmp", 0 0, v0000015ecdf20280_0;  1 drivers
+v0000015ecdf1fd80_0 .net "jmp_signal", 0 0, L_0000015ecdf1fa60;  alias, 1 drivers
+v0000015ecdf1fe20_0 .net "jn", 0 0, v0000015ecdf205a0_0;  1 drivers
+v0000015ecdf200a0_0 .net "jz", 0 0, v0000015ecdf20640_0;  1 drivers
+v0000015ecdf1f920_0 .net "nf", 0 0, v0000015ecdf1f9c0_0;  1 drivers
+v0000015ecdf1fb00_0 .net "zf", 0 0, v0000015ecdf1f880_0;  1 drivers
+L_0000015ecdf206e0 .functor MUXZ 2, L_0000015ecdf208d8, L_0000015ecdf20890, L_0000015ecded4980, C4<>;
+L_0000015ecdf1fa60 .part L_0000015ecdf206e0, 0, 1;
+    .scope S_0000015ecde8bde0;
+T_0 ;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf20280_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf1fba0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf201e0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf205a0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf1f9c0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf20640_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf1f880_0, 0, 1;
+    %delay 20, 0;
+    %vpi_call 2 23 "$display", "jump signal = %b", v0000015ecdf20460_0 {0 0 0};
+    %delay 20, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf20280_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf1fba0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf201e0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf205a0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf1f9c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf20640_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf1f880_0, 0, 1;
+    %delay 20, 0;
+    %vpi_call 2 37 "$display", "jump signal = %b", v0000015ecdf20460_0 {0 0 0};
+    %delay 20, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf20280_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf1fba0_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000015ecdf201e0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf205a0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf1f9c0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf20640_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000015ecdf1f880_0, 0, 1;
+    %delay 20, 0;
+    %vpi_call 2 51 "$display", "jump signal = %b", v0000015ecdf20460_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "handle_jumps_test.v";
+    "./handle_jumps.v";
