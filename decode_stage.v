@@ -1,7 +1,7 @@
 module decode_stage (In, Out, writeback, Rst, Clk);
 input [68:0]    In;
 input [19:0]    writeback;
-output [132:0]       Out;
+output [133:0]       Out;
 input           Rst, Clk;
 
 wire [2:0]  Rsrc_address, Rdst_address, WritebackAddress;
@@ -10,7 +10,7 @@ wire WB;
 wire [15:0] Imm_value;
 wire [2:0] CallSig;
 wire [2:0] IntSig;
-wire [15:0] ControlUnitOut;
+wire [19:0] ControlUnitOut;
 
 
 
@@ -71,6 +71,7 @@ assign Out[128]=(CallSig[0]||IntSig[0])?1:0;//stall
 assign Out[127]=(CallSig[2]||IntSig[2])?1:0;//second iteration
 assign Out[126]=(CallSig[3]||IntSig[3])?1:0;//flush
 
-assign Out[132:130]=ControlUnitOut[18:16];
+assign Out[132:130]=ControlUnitOut[18:16];//jmps
+assign Out[133]=ControlUnitOut[19];//mov
 
 endmodule
