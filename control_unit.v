@@ -24,7 +24,9 @@ In[15:11]==5'b00111||//ldm
 In[15:11]==5'b10100||//shl
 In[15:11]==5'b10101||//shr
 In[15:11]==5'b01110||//ldd
-In[15:11]==5'b00110
+In[15:11]==5'b00110||//in
+In[15:11]==5'b00010||//inc
+In[15:11]==5'b10000  //dec
 )?1:0;//immmediate or single operand inst
 and(Output[13], ~In[15] ,  In[14], In[13] , In[12] ,  In[11]);//std   
 and(Output[12], In[15] , In[14], ~In[13] , In[12] , In[11]);//jmp

@@ -35,7 +35,7 @@ wire stallSignal;
 assign FetchInput[57:55]=o_EX_MEM[105:103];
 assign FetchInput[54:39] = In;
 
-assign FetchInput[38:23] = o_ID_EX[50:35]; //Rsrc value
+assign FetchInput[38:23] = o_EX_MEM[50:35]; //Rsrc value
 //assign FetchInput[22:19] = {o_ID_EX[12],o_ID_EX[132:130]};//jump signals
 assign FetchInput[22]=o_ID_EX[12];
 
