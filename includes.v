@@ -3,6 +3,12 @@
 `include "mux_2x1_32bit.v"
 `include "mux_8x3_1bit.v"  
 `include "decoder_3x8.v"
+`include "forwarding_unit.v"
+`include "call_control.v"
+`include "handle_jumps.v"
+`include "interupt_control.v"
+`include "select_wb_value.v"
+`include "register_generic.v"
 
 `include "register_16bit.v"
 `include "register_16bit_f.v"

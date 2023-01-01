@@ -1,8 +1,3 @@
-`include "forwarding_unit.v"
-`include "mux_2x1_16bit.v"
-`include "alu_16bit.v"
-`include "mux_2x1_1bit.v"
-`include "register_generic.v"
 module  execute_stage (
 input [104:0]In, 
 input [24:0]Ctrl, 

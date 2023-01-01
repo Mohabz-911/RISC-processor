@@ -12,15 +12,16 @@ wire [105 : 0]  i_EX_MEM;
 wire [105 : 0]  o_EX_MEM;
 wire [57 : 0]  i_MEM_WB;
 wire [57 : 0]  o_MEM_WB;
+// reg [15:0]Out_Port;
 
 //Buffer between fetch stage and decode stage
 //16-bits: Instruction
 buffer #(64)IF_ID(Rst, Clk, i_IF_ID, o_IF_ID);
 
 //Buffer between decode stage and execute stage
-buffer #(127)ID_EX(Rst, Clk, i_ID_EX, o_ID_EX);
+buffer #(134)ID_EX(Rst, Clk, i_ID_EX, o_ID_EX);
 
-//Buffer between execute and memory stage
+//Buffer between execute and memory stageS
 buffer #(106)EX_MEM(Rst, Clk, i_EX_MEM, o_EX_MEM);
 
 //Buffer between the memory and writeback stage
@@ -64,5 +65,8 @@ execute_stage e(.In({o_ID_EX[132:130],o_ID_EX[125:24]}), .Ctrl({o_ID_EX[127],o_I
 memory_stage m(.MemoryInput(o_EX_MEM[98:13]), .Ctrl(o_EX_MEM[12:0]), .MemoryOutput(i_MEM_WB), .Reset(Rst), .CLK(Clk));
 
 writeback_stage w(.In(o_MEM_WB), .Out(WritebackOutput));
+
+
+// assign Out_Port=
 
 endmodule
