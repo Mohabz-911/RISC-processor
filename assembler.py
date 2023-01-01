@@ -1,8 +1,23 @@
 def hexToBin(numInHex):
     d = int(numInHex, base=16)
+    # print (numInHex)
     string = str(bin(d))
-    return string[2:]
+    string_2 = string[2:]
+    while (len(string_2) < 5):
+        string_2 = "0" + string_2
+    # print (string_2)
+    return string_2
 
+
+def to_16Binay(numInHex):
+    d = int(numInHex, base=16)
+    # print (numInHex)
+    string = str(bin(d))
+    string_2 = string[2:]
+    while (len(string_2) < 16):
+        string_2 = "0" + string_2
+    # print (string_2)
+    return string_2
 
 
 file1 = open("D:\CMP\CMP3\ComputerArchitecture\Project\RISC-processor\myFile.txt","r")
@@ -26,12 +41,14 @@ for x in file1:
             newFile.write("\n") 
 file1.close()
 newFile.close()
+
 newFile = open("D:\CMP\CMP3\ComputerArchitecture\Project\RISC-processor\\new.txt","r")
 instructionMemo = open("D:\CMP\CMP3\ComputerArchitecture\Project\RISC-processor\InstructionMemory.txt","w")
+
 allLines = []
 isInt = False
 intCout = 0
-
+isLdm = False
 # intialize the interrupt part with zeros
 for i in range (0, 33):
     if (i == 32):
@@ -42,6 +59,8 @@ for i in range (0, 33):
 
 # looping line by line in the new text file        
 for line in newFile:
+    isLdm = False
+    ldmValue = ""
     instruction = ""
     arr = line.split()     # split the line to the instruction and the operands
     if (arr[0] == "NOP"):
@@ -127,8 +146,16 @@ for line in newFile:
             instruction = instruction + "110"    
         elif (reg[0] == "R7"):
             instruction = instruction + "111"    
-        if (arr[0] == "LDD" or arr[0] == "SHR" or arr[0] == "SHL"):       # convert immediate values from hex to binary
-            instruction = instruction + hexToBin(reg[1])  
+        if (arr[0] == "LDM" or arr[0] == "SHR" or arr[0] == "SHL"):  # convert immediate values from hex to binary
+            if (arr[0] == "SHR" or arr[0] == "SHL"):
+                # print(instruction[5:])
+                instruction = instruction + instruction[5:] + hexToBin(reg[1])  
+            else:           
+                instruction = instruction + instruction[5:] + "00000"
+                isLdm = True
+                ldmValue = to_16Binay(reg[1])
+
+
         else:
             if (reg[1] == "R0"):
                 instruction = instruction + "000"
@@ -173,9 +200,15 @@ for line in newFile:
     
     if (isInt == False):                            # it is not interrupt so put it in code part
         allLines.append(instruction + "\n")
+        if (isLdm == True):
+            allLines.append(ldmValue + "\n")
+
     else:                                          # it is interrupt so put it in interrupt part
         allLines[intCout] = instruction + "\n"
-        intCout = intCout + 1    
+        intCout = intCout + 1   
+        if (isLdm == True):
+            allLines[intCout] = ldmValue + "\n"
+            intCout = intCout + 1
     
 
 instructionMemo.writelines(allLines)      
