@@ -3,8 +3,11 @@
 module mad_risc_processor_test();
 
 reg Clk, Rst;
+reg [15:0]In,Out;
+reg Int;
 
-mad_risc_processor mad(Clk, Rst);
+
+mad_risc_processor mad(In, Out, Clk, Rst, Int);
 
 always begin
     #10
