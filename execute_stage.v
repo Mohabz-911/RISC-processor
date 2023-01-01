@@ -2,6 +2,7 @@
 `include "mux_2x1_16bit.v"
 `include "alu_16bit.v"
 `include "mux_2x1_1bit.v"
+`include "register_generic.v"
 module  execute_stage (
 input [104:0]In, 
 input [24:0]Ctrl, 
@@ -67,7 +68,7 @@ wire ALU_Enable;
 wire ImmSingOpInst;//used
 wire STD;// used
 wire JMP;//used
-wire FlagsProtection;
+wire FlagsProtection; //used
 wire PrvsStackOp;//passed
 wire PUSH;//passed
 wire POP;//passed
@@ -88,7 +89,7 @@ assign ALU_Control = Ctrl[22:16];
 
 
 //ldm whereeeeeee????????? bit
-assign LDM=ctrl[15]; //5odouha entou me7tagynha 8aleban
+assign LDM=Ctrl[15]; //5odouha entou me7tagynha 8aleban
 
 
 //why no jz jc jn???????????? In[104:102] ###############
@@ -187,10 +188,24 @@ wire [15:0] IntrRdstVal; //THIS WIRE COMES FROM THE MUX WHICH CHOOSE BETWEEN  RE
 
     alu_16bit ALU_inst(.FirstOperand(FirstOperand),.SeconedOperand(SeconedOperand),.OP(ALU_Control),.Result(ALU_Result),.ZeroFlag(ZF),.CarryFlag(CF),.NegativeFlag(NF));
 
+
+    wire[2:0] InFlags,OutFlags;
+
+    assign InFlags [0]=CF; 
+    assign InFlags [1]=NF;
+    assign InFlags [2]=ZF;
+
+    // THIS IS THE REGISTER WHICH STORE THE PREVIOUS FlAGS  VLAUE IF FlagsProtection SIGNAL IS HIGH
+    register_generic #(3) FlagsPrtcReg(.InData(InFlags),.OutData(OutFlags),.Reset(Reset),.Clk(CLK),.Enable(FlagsProtection));
+
+
+
     wire JC,JN,CF,NF,JZ,ZF;
-    assign JC=(CF)?1'b1:1'b0;
-    assign JN=(NF)?1'b1:1'b0;
-    assign JZ=(ZF)?1'b1:1'b0;
+
+    
+    assign JC=(OutFlags[0])?1'b1:1'b0;
+    assign JN=(OutFlags[1])?1'b1:1'b0;
+    assign JZ=(OutFlags[2])?1'b1:1'b0;
 
 /*
 Out: 106-bits
