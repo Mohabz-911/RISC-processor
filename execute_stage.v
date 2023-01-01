@@ -1,4 +1,3 @@
-
 module  execute_stage (
 input [104:0]In, 
 input [24:0]Ctrl, 
