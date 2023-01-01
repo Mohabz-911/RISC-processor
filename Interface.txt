@@ -1,8 +1,9 @@
 /*
 In: 58-bits
+3-bit: (CF- NF- ZF)
 16-bit: In port
 16-bit: Rdst
-7-bit:  Jump signals (JMP - JC - CF - JN - NF - JZ - ZF)
+4-bit:  Jump signals (JMP - JC  - JN  - JZ )
 16-bit: Address to jump on from in port
 2-bit:  Control signals        WHAT??????
 1-bit:  PC increment stall signal
@@ -42,22 +43,36 @@ In: 69-bits
 
 --------------------------------------------------
 
-Out: (128)-bits
-1-bit:  PC increment stall signal
+Out: (130)-bits
+
+
+1-bit :JC
+1-bit :JN
+1-bit :jz
+
+1-bit : interrupt control signal(for roumi)
+1-bit stall
+1-bit:  second iteration
+1-bit : flush
 16-bit: In port
 32-bit: Address of next instruction
 16-bit: Rsrc value
 16-bit: Rdst value
 3-bit:  Rsrc Address
 3-bit:  Rdst Address
+
 16-bit: Imm value
+
 7-bit:  ALU-Control
 1-bit:  ALU_enable
+
+1-bit ldm
+
 1-bit:  Immediate value or single-op instructions except CALL
 1-bit:  STD
 1-bit:  JMP
 1-bit:  Flags Protection
-1-bit:  Previous stack op
+
 1-bit:  PUSH
 1-bit:  POP
 1-bit:  RET
@@ -122,7 +137,7 @@ Fwd: 40-bits        (These are inputs)
 ----------------------------------------------
 
 Out: 106-bits
-7-bit:  Jump signals (JMP - JC - CF - JN - NF - JZ - ZF)
+7-bit:  Jump signals ( CF- NF-ZF - JMP - JC  - JN  - JZ )
 16-bit: In port
 32-bit: Address of next instruction
 16-bit: Rsrc value

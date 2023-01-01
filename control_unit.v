@@ -1,10 +1,14 @@
 module control_unit(In,Output);
 input [15:0]In;
-output [15:0]Output;
+output [18:0]Output;//kanet 15
 
 
 
 //and(Output[15], ~In[15] , ~In[14], In[13] , In[12] , In[11]);//flags
+
+and(Output[18], In[15] , In[14], ~In[13] , In[12] , ~In[11]);//jc
+and(Output[17], In[15] , In[14], ~In[13] , ~In[12] , In[11]);//jn
+and(Output[16], In[15] , In[14], ~In[13] , ~In[12] , ~In[11]);//jz
 
 assign Output[15]=(
 In[15:14]==2'b10||
