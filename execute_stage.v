@@ -81,12 +81,14 @@ wire CALL;//used
 wire MemRead;//Passed
 wire MemWrite;//Passed
 wire WB_Signal; //Passed 
+wire LDM;
 
 assign ALU_Enable = Ctrl[23];//fo2 a faireeeeee
 assign ALU_Control = Ctrl[22:16];
 
 
-//ldm whereeeeeee????????? bit ctrl[15] 5odouha entou me7tagynha 8aleban
+//ldm whereeeeeee????????? bit
+assign LDM=ctrl[15]; //5odouha entou me7tagynha 8aleban
 
 
 //why no jz jc jn???????????? In[104:102] ###############
@@ -175,7 +177,7 @@ wire [15:0] IntrRdstVal; //THIS WIRE COMES FROM THE MUX WHICH CHOOSE BETWEEN  RE
     wire [15:0] SeconedOperand;
 
     wire Mux3Selectror;
-    assign Mux3Selectror=CALL|JMP|OUT|STD;
+    assign Mux3Selectror=CALL|JMP|OUT|STD|LDM;
 
     wire [15:0] ALU_Result;
 
@@ -214,9 +216,9 @@ Out: 106-bits
 1-bit:  WB signal  
 */  
 
-    assign Out[105]=CF;
-    assign Out[104]=NF;
-    assign Out[103]=ZF;
+    assign Out[105]=CF;/////CarryFlag
+    assign Out[104]=NF;////NegativeFlag
+    assign Out[103]=ZF;////ZeroFlag
     assign Out[102]=JMP;
     assign Out[101]=JC;
     assign Out[100]=JN;
