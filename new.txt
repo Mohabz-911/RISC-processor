@@ -13,4 +13,10 @@ SUB R5,R4
 AND R7,R4               
 OR R2,R1               
 SHL R1,4                
-SHR R1,2                
+SHR R1,4                
+OUT R1
+OUT R2
+OUT R3
+OUT R4
+IN R5                   
+OUT R5

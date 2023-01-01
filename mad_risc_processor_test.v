@@ -31,7 +31,9 @@ initial begin
   In = 16'hFFFF;
   #20
   In = 16'hF320;
-  #300
+  #250
+  In = 16'hAABD;
+  #250
   $finish;
 end
 

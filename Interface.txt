@@ -228,7 +228,8 @@ In: 58-bits
 
 --------------------------------------------
 
-Out: 20-bits
+Out: 36-bits
+16-bit: Output Port
 16-bit: Writeback value
 3-bit:  Rdst Address
 1-bit:  WB signal

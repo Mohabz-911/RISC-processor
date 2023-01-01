@@ -47,10 +47,10 @@ assign FetchInput[1]=o_ID_EX[129];
 //ret rti stall int 
 assign FetchInput[0]=i_ID_EX[128];
 
-assign ForwardBus[15:0] = (o_MEM_WB[58])?o_MEM_WB[41:26]:o_MEM_WB[25:10];  //Memory Rdst value
+assign ForwardBus[15:0] = (~o_MEM_WB[2])?((o_MEM_WB[58])?o_MEM_WB[41:26]:o_MEM_WB[25:10]):o_MEM_WB[57:42];  //Memory Rdst value
 assign ForwardBus[18:16] = o_MEM_WB[9:7];  //Memory Rdst address
 assign ForwardBus[19] = o_MEM_WB[0];        //Memory WB
-assign ForwardBus[35:20] = o_EX_MEM[34:19]; //Execute Rdst value (ALU output)
+assign ForwardBus[35:20] = (o_EX_MEM[6])?o_EX_MEM[98:83]:o_EX_MEM[34:19]; //Execute Rdst value (ALU output)
 assign ForwardBus[38:36] = o_EX_MEM[15:13]; //Execute Rdst address
 assign ForwardBus[39] = o_EX_MEM[0];        //Execute WB
 assign LUCU[3] = o_ID_EX[2];                //mem read
@@ -65,7 +65,7 @@ execute_stage e(.In({o_ID_EX[132:130],o_ID_EX[125:24]}), .Ctrl({o_ID_EX[133],o_I
 
 memory_stage m(.MemoryInput(o_EX_MEM[98:13]), .Ctrl({o_MEM_WB[59],o_EX_MEM[11:0]}), .MemoryOutput(i_MEM_WB), .Reset(Rst), .CLK(Clk));
 
-writeback_stage w(.In(o_MEM_WB[57:0]), .Out(WritebackOutput));
+writeback_stage w(.In(o_MEM_WB[57:0]), .Out({Out,WritebackOutput}), .clk(Clk), .rst(Rst));
 
 
 // assign Out_Port=

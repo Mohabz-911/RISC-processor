@@ -1,10 +1,11 @@
-module writeback_stage(In, Out);
+module writeback_stage(In, Out, clk, rst);
 input [57:0]    In;
-output [19:0]   Out;
+input clk , rst;
+output [35:0]   Out;
 
 wire [15:0] WBValue;
 
-wire [15:0] outPort;
+reg [15:0] outPort;
 
 select_wb_value s(.DataOut(In[41:26]) ,
                  .AluOutput(In[25:10]) , 
@@ -14,8 +15,12 @@ select_wb_value s(.DataOut(In[41:26]) ,
                  .WBValue(WBValue));
 
 
-assign outPort = (In[1] == 1'b1) ? In[25:10] : outPort;
-assign Out = {WBValue , In[9:7] , In[0]};                 
+always@(posedge clk)begin
+    if (rst) outPort = 16'b0;
+    else if(In[1]) outPort = In[25:10];
+end
+
+assign Out = {outPort, WBValue , In[9:7] , In[0]};                 
 // wire selector;
 // assign selector = In[0] | In[2];
 
