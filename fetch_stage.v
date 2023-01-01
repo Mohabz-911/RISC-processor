@@ -1,7 +1,7 @@
 module fetch_stage(In, Out, Clk, Rst);
 localparam number_of_instructions = 5;
 input           Clk, Rst;
-input [57:0]    In;
+input [73:0]    In;
 output [63:0]   Out;
 
 wire [31:0] PC_out, PC_plus;
