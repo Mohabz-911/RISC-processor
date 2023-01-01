@@ -1,22 +1,24 @@
 module control_unit(In,Output);
 input [15:0]In;
-output [18:0]Output;//kanet 15
+output [19:0]Output;//kanet 15
 
 
 
 //and(Output[15], ~In[15] , ~In[14], In[13] , In[12] , In[11]);//flags
 
+//00101
+and(Output[19], ~In[15] , ~In[14], In[13] , ~In[12] , In[11]);//mov
 and(Output[18], In[15] , In[14], ~In[13] , In[12] , ~In[11]);//jc
 and(Output[17], In[15] , In[14], ~In[13] , ~In[12] , In[11]);//jn
 and(Output[16], In[15] , In[14], ~In[13] , ~In[12] , ~In[11]);//jz
 
 assign Output[15]=(
-In[15:14]==2'b10||
-In[15:11]==5'b00000||
-In[15:11]==5'b00010||
-In[15:11]==5'b00011||
-In[15:11]==5'b00001
-)?0:1;//flag saving
+In[15:14]==2'b10||//dec sub or and shl shr not
+In[15:11]==5'b00000||//add
+In[15:11]==5'b00010||//inc
+In[15:11]==5'b00011||//clc
+In[15:11]==5'b00001//setc
+)?1:0;//flag saving
 
 and(Output[14], ~In[15] , ~In[14], In[13] , In[12] , In[11]);//ldm
 assign Output[13]=(In[15:11]==5'b00001||//setc
