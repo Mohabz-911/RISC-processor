@@ -23,7 +23,8 @@ In[15:11]==5'b11100||//ret
 In[15:11]==5'b00111||//ldm
 In[15:11]==5'b10100||//shl
 In[15:11]==5'b10101||//shr
-In[15:11]==5'b01110//ldd
+In[15:11]==5'b01110||//ldd
+In[15:11]==5'b00110
 )?1:0;//immmediate or single operand inst
 and(Output[13], ~In[15] ,  In[14], In[13] , In[12] ,  In[11]);//std   
 and(Output[12], In[15] , In[14], ~In[13] , In[12] , In[11]);//jmp
@@ -49,13 +50,12 @@ and(Output[2], ~In[15] , In[14] , In[13] , ~In[11]);//mem read
 and(Output[1], ~In[15] , In[14] , In[13] , In[11]);//mem write
 assign Output[0]=(In[15:14]==2'b10||
 In[15:11]==5'b01101||
-In[15:11]==5'b01111||
-
 In[15:11]==5'b00101||
 In[15:11]==5'b00111||
 In[15:11]==5'b00010||
 In[15:11]==5'b00000||
-In[15:11]==5'b01110
+In[15:11]==5'b01110||
+In[15:11]==5'b00110
 )?1:0;//WB
 
 endmodule

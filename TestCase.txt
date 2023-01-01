@@ -1,7 +1,8 @@
-LDD R0, R1
-ADD R2, R3
-LDD R1, R4
-NOT R1
-STD R1, R4
-ADD R1, R3
-MOV R4, R2
+LDD R0, R1  F D E M W
+ADD R2, R3    F D E M W
+LDD R1, R4      F D E M W
+NOT R1            F D E M W
+ADD R5, R6          F D E M W
+STD R1, R4            F D E M W
+ADD R1, R3              F D E M W
+MOV R4, R2                F D E M W

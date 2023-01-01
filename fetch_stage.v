@@ -14,10 +14,16 @@ wire [31:0] Rdst;
 
 wire [31:0]vars;
 
+reg [15:0] InputDelayed;
+
 append_zeros b(.InputData(In[38:23]) , .OutputData(Rdst));
 append_zeros a(.InputData(In[18:3]) , .OutputData(dataFromWrightBack));
 
 instruction_memory im(.Address(PC_out), .Data(instruction));
+
+always@(posedge Clk) begin
+    InputDelayed = In[54:39];
+end
 
 
 // check if there is a jump
@@ -50,6 +56,6 @@ assign PC_plus = (In[0] == 1'b1) ?  PC_out : PC_out + 1;
 
 assign vars=PC_out + 1'b1;
 // out buffer
-assign Out = {In[54:39] , vars , instruction};
+assign Out = {InputDelayed, vars , instruction};
 
 endmodule

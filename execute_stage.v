@@ -1,6 +1,6 @@
 module  execute_stage (
 input [104:0]In, 
-input [24:0]Ctrl, 
+input [25:0]Ctrl, 
 input [39:0]Fwd, 
 output[105:0] Out, 
 input Reset, 
@@ -78,6 +78,7 @@ wire MemRead;//Passed
 wire MemWrite;//Passed
 wire WB_Signal; //Passed 
 wire LDM;
+wire MOV;
 
 assign ScndIteration = Ctrl[24];
 
@@ -87,7 +88,7 @@ assign ALU_Control = Ctrl[22:16];
 
 //ldm whereeeeeee????????? bit
 assign LDM=Ctrl[15]; //5odouha entou me7tagynha 8aleban
-
+assign MOV=Ctrl[25];
 
 //why no jz jc jn???????????? In[104:102] ###############
 //hereeeeeeeeeeeeeeeee watch outttttttttttttttttttttttttt
@@ -178,7 +179,7 @@ wire [15:0] IntrRdstVal; //THIS WIRE COMES FROM THE MUX WHICH CHOOSE BETWEEN  RE
 
     mux_2x1_16bit Mux3ForSrc(.I0(IntrRsrcVal),.I1(16'h0),.S(Mux3Selectror),.O(FirstOperand));
 
-    mux_2x1_16bit Mux4ForDest(.I0(IntrRdstVal),.I1(ImmValue),.S(ImmSingOpInst),.O(SeconedOperand));
+    mux_2x1_16bit Mux4ForDest(.I0(IntrRdstVal),.I1(ImmValue),.S(ImmSingOpInst|MOV),.O(SeconedOperand));
 
     alu_16bit ALU_inst(.FirstOperand(FirstOperand),.SeconedOperand(SeconedOperand),.OP(ALU_Control),.Result(ALU_Result),.ZeroFlag(ZF),.CarryFlag(CF),.NegativeFlag(NF), .En(ALU_Enable));
 
@@ -234,7 +235,7 @@ Out: 106-bits
     assign Out[99]=JZ;
     assign Out[98:83]=InPort;
     assign Out[82:51]=AddressNxtInstruction;
-    assign Out[50:35]=RsrcValue;
+    assign Out[50:35]=IntrRsrcVal;
     assign Out[34:19]=ALU_Result;
     assign Out[18:16]=RsrcAddress;
     assign Out[15:13]=RdstAddress;
@@ -244,7 +245,7 @@ Out: 106-bits
     assign Out[9]=RET;
     assign Out[8]=RTI;
     assign Out[7]=LDD;
-    assign Out[6]=In;
+    assign Out[6]=IN;
     assign Out[5]=OUT;
     assign Out[4]=ScndIteration;
     assign Out[3]=CALL;

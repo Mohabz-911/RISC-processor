@@ -191,7 +191,9 @@ Ctrl: 13-bits
 
 -----------------------------------------------
 
-MemoryOutput: 58-bits
+MemoryOutput: 60-bits
+1-bit:  Prev Stack Op
+1-bit:  Memory Read
 16-bit: In port
 16-bit: Memory data out
 16-bit: ALU output

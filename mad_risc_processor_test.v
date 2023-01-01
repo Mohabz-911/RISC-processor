@@ -6,6 +6,7 @@ reg Clk, Rst;
 reg [15:0]In;
 wire[15:0]Out;
 reg Int;
+integer idx;
 
 
 mad_risc_processor mad(In, Out, Clk, Rst, Int);
@@ -18,13 +19,19 @@ end
 initial begin
   $dumpfile("ay7aga.vcd");
   $dumpvars(0, mad_risc_processor_test);
-  In = 0;
+  //for (idx = 0; idx < 2048; idx = idx + 1)$dumpvars(0, mad.m.z.Memory[idx]);
+  In = 16'h0005;
   Int = 0;
   Clk = 0;
   Rst = 1;
   #20
   Rst = 0;
-  #600
+  In = 16'h0019;
+  #20
+  In = 16'hFFFF;
+  #20
+  In = 16'hF320;
+  #300
   $finish;
 end
 

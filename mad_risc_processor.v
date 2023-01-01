@@ -10,8 +10,8 @@ wire [133 : 0]  i_ID_EX;
 wire [133 : 0]  o_ID_EX;
 wire [105 : 0]  i_EX_MEM;
 wire [105 : 0]  o_EX_MEM;
-wire [57 : 0]  i_MEM_WB;
-wire [57 : 0]  o_MEM_WB;
+wire [59 : 0]  i_MEM_WB;
+wire [59 : 0]  o_MEM_WB;
 // reg [15:0]Out_Port;
 
 //Buffer between fetch stage and decode stage
@@ -25,7 +25,7 @@ buffer #(134)ID_EX(Rst, Clk, i_ID_EX, o_ID_EX);
 buffer #(106)EX_MEM(Rst, Clk, i_EX_MEM, o_EX_MEM);
 
 //Buffer between the memory and writeback stage
-buffer #(58)MEM_WB(Rst, Clk, i_MEM_WB, o_MEM_WB);
+buffer #(60)MEM_WB(Rst, Clk, i_MEM_WB, o_MEM_WB);
 
 wire [57:0] FetchInput;//****************************
 wire [19:0] WritebackOutput;       //[19]WB + [18:3]data + [2:0]Address
@@ -47,7 +47,7 @@ assign FetchInput[1]=o_ID_EX[129];
 //ret rti stall int 
 assign FetchInput[0]=i_ID_EX[128];
 
-assign ForwardBus[15:0] = o_MEM_WB[25:10];  //Memory Rdst value (ALU output)
+assign ForwardBus[15:0] = (o_MEM_WB[58])?o_MEM_WB[41:26]:o_MEM_WB[25:10];  //Memory Rdst value
 assign ForwardBus[18:16] = o_MEM_WB[9:7];  //Memory Rdst address
 assign ForwardBus[19] = o_MEM_WB[0];        //Memory WB
 assign ForwardBus[35:20] = o_EX_MEM[34:19]; //Execute Rdst value (ALU output)
@@ -61,11 +61,11 @@ fetch_stage f(.In(FetchInput), .Out(i_IF_ID), .Clk(Clk), .Rst(Rst));
 decode_stage d(.In({o_IF_ID,Int,LUCU}), .Out(i_ID_EX), .writeback(WritebackOutput), .Clk(Clk), .Rst(Rst));
 //{FetchInput[21:19],FetchInput[1:0],
 //ctrl plus second iteration
-execute_stage e(.In({o_ID_EX[132:130],o_ID_EX[125:24]}), .Ctrl({o_ID_EX[124],o_ID_EX[23:0]}), .Fwd(ForwardBus), .Out(i_EX_MEM), .CLK(Clk), .Reset(Rst));
+execute_stage e(.In({o_ID_EX[132:130],o_ID_EX[125:24]}), .Ctrl({o_ID_EX[133],o_ID_EX[124],o_ID_EX[23:0]}), .Fwd(ForwardBus), .Out(i_EX_MEM), .CLK(Clk), .Reset(Rst));
 
-memory_stage m(.MemoryInput(o_EX_MEM[98:13]), .Ctrl(o_EX_MEM[12:0]), .MemoryOutput(i_MEM_WB), .Reset(Rst), .CLK(Clk));
+memory_stage m(.MemoryInput(o_EX_MEM[98:13]), .Ctrl({o_MEM_WB[59],o_EX_MEM[11:0]}), .MemoryOutput(i_MEM_WB), .Reset(Rst), .CLK(Clk));
 
-writeback_stage w(.In(o_MEM_WB), .Out(WritebackOutput));
+writeback_stage w(.In(o_MEM_WB[57:0]), .Out(WritebackOutput));
 
 
 // assign Out_Port=
