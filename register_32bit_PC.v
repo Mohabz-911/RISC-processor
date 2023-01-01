@@ -5,9 +5,9 @@ module register_32bit_PC(
     input jumpSignal,
     input [31:0]Rdst,
     input interruptSignal,
-    input RetRti,
+    input RetRtiCall,
     input [31:0]dataFromWrightBack,
-    output[31:0] OutData
+    output reg[31:0] OutData
 );
 
 // reg[31:0] Data;
@@ -23,7 +23,7 @@ end
 else if (interruptSignal) begin
   OutData<=0;
 end
-else if (RetRti | callSignal) begin
+else if (RetRtiCall) begin
   OutData<=dataFromWrightBack;
 end
 else begin

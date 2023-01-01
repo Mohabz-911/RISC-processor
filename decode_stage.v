@@ -8,8 +8,8 @@ wire [2:0]  Rsrc_address, Rdst_address, WritebackAddress;
 wire [15:0] Rsrc, Rdst, WritebackData, InPort;
 wire WB;
 wire [15:0] Imm_value;
-wire [2:0] CallSig;
-wire [2:0] IntSig;
+wire [3:0] CallSig;
+wire [3:0] IntSig;
 wire [19:0] ControlUnitOut;
 
 
@@ -43,7 +43,7 @@ assign Out[42:40] = Rdst_address;//3
 //done
 //126:25 in
 //24:0 ctrl
-immediate_control ic(.Inp(In), .LDM(1'b0), .Out(Out[39:24])); //immediate                       ///////YALAHWIIIIIIIIIII
+immediate_control ic(.Inp(In[20:5]), .LDM(1'b0), .Out(Out[39:24])); //immediate                       ///////YALAHWIIIIIIIIIII
 
 
 //on continue ici apres immediate

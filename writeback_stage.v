@@ -4,7 +4,7 @@ output [19:0]   Out;
 
 wire [15:0] WBValue;
 
-reg [15:0] outPort;
+wire [15:0] outPort;
 
 select_wb_value s(.DataOut(In[41:26]) ,
                  .AluOutput(In[25:10]) , 

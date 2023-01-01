@@ -1,7 +1,7 @@
 module fetch_stage(In, Out, Clk, Rst);
 localparam number_of_instructions = 5;
 input           Clk, Rst;
-input [73:0]    In;
+input [57:0]    In;
 output [63:0]   Out;
 
 wire [31:0] PC_out, PC_plus;
@@ -11,6 +11,8 @@ wire [15:0] instruction;
 wire jmp_signal;
 wire [31:0] dataFromWrightBack;
 wire [31:0] Rdst;
+
+wire [31:0]vars;
 
 append_zeros b(.InputData(In[38:23]) , .OutputData(Rdst));
 append_zeros a(.InputData(In[18:3]) , .OutputData(dataFromWrightBack));
@@ -36,8 +38,8 @@ register_32bit_PC PC(.Rst(Rst),
                     .jumpSignal(jmp_signal), 
                     .Rdst(Rdst), 
                     .interruptSignal(In[1]), 
-                    .RetRti(In[2]), 
-                    .dataFromWrightBack(In[dataFromWrightBack]) , 
+                    .RetRtiCall(In[2]), 
+                    .dataFromWrightBack(dataFromWrightBack) , 
                     .OutData(PC_out));
 
 //To be edited
@@ -46,8 +48,8 @@ register_32bit_PC PC(.Rst(Rst),
 assign PC_plus = (In[0] == 1'b1) ?  PC_out : PC_out + 1; 
 //mux_2x1_32bit m(.I0(PC_plus), .I1(In), .S(), .O(NewPC));
 
-
+assign vars=PC_out + 1'b1;
 // out buffer
-assign Out = {In[54:39] , PC_out + 1 , instruction};
+assign Out = {In[54:39] , vars , instruction};
 
 endmodule
