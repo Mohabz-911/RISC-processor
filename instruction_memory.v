@@ -1,5 +1,5 @@
 module instruction_memory(Address, Data);
-localparam INSTRUCTION_MEMORY_SIZE = 56;
+localparam INSTRUCTION_MEMORY_SIZE = 38;
 input      [31:0]   Address;
 output reg [15:0]   Data;
 

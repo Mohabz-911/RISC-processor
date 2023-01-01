@@ -15,14 +15,14 @@ wire [19:0] ControlUnitOut;
 
 
 
-assign WritebackAddress = writeback[2:0];
-assign WritebackData = writeback[18:3];
-assign WB = writeback[19];
+assign WritebackAddress = writeback[3:1];
+assign WritebackData = writeback[19:4];
+assign WB = writeback[0];
 assign Rsrc_address = In[15:13];
 assign Rdst_address = In[12:10];
 
 
-assign Out[129]=In[4];
+assign Out[129]=In[4];  //Interrupt
 
 //done
 assign Out[125:110]=In[68:53];//inport

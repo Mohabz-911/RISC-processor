@@ -60,7 +60,7 @@ fetch_stage f(.In(FetchInput), .Out(i_IF_ID), .Clk(Clk), .Rst(Rst));
 decode_stage d(.In({o_IF_ID,Int,LUCU}), .Out(i_ID_EX), .writeback(WritebackOutput), .Clk(Clk), .Rst(Rst));
 //{FetchInput[21:19],FetchInput[1:0],
 //ctrl plus second iteration
-execute_stage e(.In({o_ID_EX[132:130],o_ID_EX[125:24]}), .Ctrl({o_ID_EX[127],o_ID_EX[23:0]}), .Fwd(ForwardBus), .Out(i_EX_MEM), .CLK(Clk), .Reset(Rst));
+execute_stage e(.In({o_ID_EX[132:130],o_ID_EX[125:24]}), .Ctrl({o_ID_EX[124],o_ID_EX[23:0]}), .Fwd(ForwardBus), .Out(i_EX_MEM), .CLK(Clk), .Reset(Rst));
 
 memory_stage m(.MemoryInput(o_EX_MEM[98:13]), .Ctrl(o_EX_MEM[12:0]), .MemoryOutput(i_MEM_WB), .Reset(Rst), .CLK(Clk));
 

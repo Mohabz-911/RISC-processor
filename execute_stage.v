@@ -79,6 +79,8 @@ wire MemWrite;//Passed
 wire WB_Signal; //Passed 
 wire LDM;
 
+assign ScndIteration = Ctrl[24];
+
 assign ALU_Enable = Ctrl[23];//fo2 a faireeeeee
 assign ALU_Control = Ctrl[22:16];
 
@@ -96,7 +98,7 @@ assign JMP = Ctrl[12];
 assign FlagsProtection = Ctrl[11];
 
 
-assign PrvsStackOp = Ctrl[12];// whattttttttttt on earth is thisssssssssssssssssssss
+assign PrvsStackOp = 1'b0;// whattttttttttt on earth is thisssssssssssssssssssss
 //this is a loop from execute to memo to decode 
 //enjoyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 
@@ -108,9 +110,6 @@ assign RTI = Ctrl[7];
 assign LDD = Ctrl[6];
 assign IN = Ctrl[5];
 assign OUT = Ctrl[4];
-
-assign ScndIteration = Ctrl[24];
-
 assign CALL = Ctrl[3];
 assign MemRead = Ctrl[2];
 assign MemWrite = Ctrl[1];
@@ -141,7 +140,7 @@ wire [15:0] MemRdstVal;
 
 assign ExRdst_WB = Fwd[39];
 assign ExRdstAddress = Fwd[38:36]; 
-assign ExRdstVal = Fwd[35:15];
+assign ExRdstVal = Fwd[35:20];
 assign MemRdst_WB = Fwd[19];
 assign MemRdstAddress = Fwd[18:16];
 assign MemRdstVal = Fwd[15:0];
@@ -181,7 +180,7 @@ wire [15:0] IntrRdstVal; //THIS WIRE COMES FROM THE MUX WHICH CHOOSE BETWEEN  RE
 
     mux_2x1_16bit Mux4ForDest(.I0(IntrRdstVal),.I1(ImmValue),.S(ImmSingOpInst),.O(SeconedOperand));
 
-    alu_16bit ALU_inst(.FirstOperand(FirstOperand),.SeconedOperand(SeconedOperand),.OP(ALU_Control),.Result(ALU_Result),.ZeroFlag(ZF),.CarryFlag(CF),.NegativeFlag(NF));
+    alu_16bit ALU_inst(.FirstOperand(FirstOperand),.SeconedOperand(SeconedOperand),.OP(ALU_Control),.Result(ALU_Result),.ZeroFlag(ZF),.CarryFlag(CF),.NegativeFlag(NF), .En(ALU_Enable));
 
 
     wire[2:0] InFlags,OutFlags;
@@ -226,9 +225,9 @@ Out: 106-bits
 1-bit:  WB signal  
 */  
 
-    assign Out[105]=CF;/////CarryFlag
-    assign Out[104]=NF;////NegativeFlag
-    assign Out[103]=ZF;////ZeroFlag
+    assign Out[105]=OutFlags[0];/////CarryFlag
+    assign Out[104]=OutFlags[1];////NegativeFlag
+    assign Out[103]=OutFlags[2];////ZeroFlag
     assign Out[102]=JMP;
     assign Out[101]=JC;
     assign Out[100]=JN;
@@ -236,6 +235,7 @@ Out: 106-bits
     assign Out[98:83]=InPort;
     assign Out[82:51]=AddressNxtInstruction;
     assign Out[50:35]=RsrcValue;
+    assign Out[34:19]=ALU_Result;
     assign Out[18:16]=RsrcAddress;
     assign Out[15:13]=RdstAddress;
     assign Out[12]=PrvsStackOp;

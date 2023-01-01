@@ -12,16 +12,10 @@ and(Output[18], In[15] , In[14], ~In[13] , In[12] , ~In[11]);//jc
 and(Output[17], In[15] , In[14], ~In[13] , ~In[12] , In[11]);//jn
 and(Output[16], In[15] , In[14], ~In[13] , ~In[12] , ~In[11]);//jz
 
-assign Output[15]=(
-In[15:14]==2'b10||//dec sub or and shl shr not
-In[15:11]==5'b00000||//add
-In[15:11]==5'b00010||//inc
-In[15:11]==5'b00011||//clc
-In[15:11]==5'b00001//setc
-)?1:0;//flag saving
 
-and(Output[14], ~In[15] , ~In[14], In[13] , In[12] , In[11]);//ldm
-assign Output[13]=(In[15:11]==5'b00001||//setc
+
+and(Output[15], ~In[15] , ~In[14], In[13] , In[12] , In[11]);//ldm
+assign Output[14]=(In[15:11]==5'b00001||//setc
 In[15:11]==5'b11111||//nop
 In[15:11]==5'b11101||//rti
 In[15:11]==5'b00011||//clrc
@@ -31,8 +25,15 @@ In[15:11]==5'b10100||//shl
 In[15:11]==5'b10101||//shr
 In[15:11]==5'b01110//ldd
 )?1:0;//immmediate or single operand inst
-and(Output[12], ~In[15] ,  In[14], In[13] , In[12] ,  In[11]);//std   
-and(Output[11], In[15] , In[14], ~In[13] , In[12] , In[11]);//jmp
+and(Output[13], ~In[15] ,  In[14], In[13] , In[12] ,  In[11]);//std   
+and(Output[12], In[15] , In[14], ~In[13] , In[12] , In[11]);//jmp
+assign Output[11]=(
+In[15:14]==2'b10||//dec sub or and shl shr not
+In[15:11]==5'b00000||//add
+In[15:11]==5'b00010||//inc
+In[15:11]==5'b00011||//clc
+In[15:11]==5'b00001//setc
+)?1:0;//flag saving
 //13
 //12
 and(Output[10], ~In[15] ,  In[14], In[13] , ~In[12] , ~In[11]);//push
@@ -53,8 +54,8 @@ In[15:11]==5'b01111||
 In[15:11]==5'b00101||
 In[15:11]==5'b00111||
 In[15:11]==5'b00010||
-In[15:11]==5'b00000
-||In[15:11]==5'b01110
+In[15:11]==5'b00000||
+In[15:11]==5'b01110
 )?1:0;//WB
 
 endmodule

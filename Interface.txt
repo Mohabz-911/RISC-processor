@@ -43,9 +43,9 @@ In: 69-bits
 
 --------------------------------------------------
 
-Out: (130)-bits
+Out: (134)-bits
 
-
+1-bit :MOV
 1-bit :JC
 1-bit :JN
 1-bit :jz
@@ -63,8 +63,8 @@ Out: (130)-bits
 
 16-bit: Imm value
 
-7-bit:  ALU-Control
 1-bit:  ALU_enable
+7-bit:  ALU-Control
 
 1-bit ldm
 
@@ -80,7 +80,6 @@ Out: (130)-bits
 1-bit:  LDD
 1-bit:  IN
 1-bit:  OUT
-1-bit:  second iteration
 1-bit:  CALL
 1-bit:  Memory read
 1-bit:  Memory write
@@ -105,13 +104,14 @@ In: (102)-bits
 -----------------------------------------------
 
 Ctrl: 25-bits
-7-bit:  ALU-Control
+1-bit:  ScndIteration
 1-bit:  ALU_enable
+7-bit:  ALU-Control
+1-bit:  LDM
 1-bit:  Immediate value or single-op instructions except CALL
 1-bit:  STD
 1-bit:  JMP
 1-bit:  Flags Protection
-1-bit:  Previous stack op
 1-bit:  PUSH
 1-bit:  POP
 1-bit:  RET
@@ -119,7 +119,6 @@ Ctrl: 25-bits
 1-bit:  LDD
 1-bit:  IN
 1-bit:  OUT
-1-bit:  second iteration
 1-bit:  CALL
 1-bit:  Memory read
 1-bit:  Memory write
