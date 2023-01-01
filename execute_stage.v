@@ -3,7 +3,7 @@
 `include "alu_16bit.v"
 `include "mux_2x1_1bit.v"
 module  execute_stage (
-input [101:0]In, 
+input [104:0]In, 
 input [24:0]Ctrl, 
 input [39:0]Fwd, 
 output[105:0] Out, 
@@ -29,7 +29,7 @@ wire[2:0]  RsrcAddress;// used //passed
 wire[2:0]  RdstAddress; //used //passed
 wire[15:0] ImmValue;//used
 
-assign InPort=In[101:85];
+assign InPort=In[101:86];
 assign AddressNxtInstruction=In[85:54];
 assign RsrcValue=In[53:38];
 assign RdstValue=In[37:22];
@@ -82,22 +82,37 @@ wire MemRead;//Passed
 wire MemWrite;//Passed
 wire WB_Signal; //Passed 
 
+assign ALU_Enable = Ctrl[23];//fo2 a faireeeeee
+assign ALU_Control = Ctrl[22:16];
 
-assign ALU_Control = Ctrl[24:18];
-assign ALU_Enable = Ctrl[17];
-assign ImmSingOpInst = Ctrl[16];
-assign STD = Ctrl[15];
-assign JMP = Ctrl[14];
-assign FlagsProtection = Ctrl[13];
-assign PrvsStackOp = Ctrl[12];
-assign PUSH = Ctrl[11];
-assign POP = Ctrl[10];
-assign RET = Ctrl[9];
-assign RTI = Ctrl[8];
-assign LDD = Ctrl[7];
-assign IN = Ctrl[6];
-assign OUT = Ctrl[5];
-assign ScndIteration = Ctrl[4];
+
+//ldm whereeeeeee????????? bit ctrl[15] 5odouha entou me7tagynha 8aleban
+
+
+//why no jz jc jn???????????? In[104:102] ###############
+//hereeeeeeeeeeeeeeeee watch outttttttttttttttttttttttttt
+
+assign ImmSingOpInst = Ctrl[14];
+assign STD = Ctrl[13];
+assign JMP = Ctrl[12];
+assign FlagsProtection = Ctrl[11];
+
+
+assign PrvsStackOp = Ctrl[12];// whattttttttttt on earth is thisssssssssssssssssssss
+//this is a loop from execute to memo to decode 
+//enjoyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+
+
+assign PUSH = Ctrl[10];
+assign POP = Ctrl[9];
+assign RET = Ctrl[8];
+assign RTI = Ctrl[7];
+assign LDD = Ctrl[6];
+assign IN = Ctrl[5];
+assign OUT = Ctrl[4];
+
+assign ScndIteration = Ctrl[24];
+
 assign CALL = Ctrl[3];
 assign MemRead = Ctrl[2];
 assign MemWrite = Ctrl[1];
