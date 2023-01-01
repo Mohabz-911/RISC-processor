@@ -31,6 +31,7 @@ wire [57:0] FetchInput;//****************************
 wire [19:0] WritebackOutput;       //[19]WB + [18:3]data + [2:0]Address
 wire [39:0] ForwardBus;
 wire [3:0]  LUCU;
+wire stallSignal;
 assign FetchInput[57:55]=o_EX_MEM[105:103];
 assign FetchInput[54:39] = In;
 

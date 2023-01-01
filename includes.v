@@ -9,6 +9,7 @@
 `include "interupt_control.v"
 `include "select_wb_value.v"
 `include "register_generic.v"
+`include "load_use_case.v"
 
 `include "register_16bit.v"
 `include "register_16bit_f.v"

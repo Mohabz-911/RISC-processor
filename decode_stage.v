@@ -11,6 +11,7 @@ wire [15:0] Imm_value;
 wire [3:0] CallSig;
 wire [3:0] IntSig;
 wire [19:0] ControlUnitOut;
+wire stallSignal;
 
 
 
@@ -57,6 +58,9 @@ control_unit cu(.In(In[20:5]), .Output(ControlUnitOut));//output of control unit
 call_control CC(.intSignal(ControlUnitOut[3]),.clk(Clk),.rst(Rst),.out(CallSig));//call decoded signal
 interupt_control IC(.intSignal(In[4]),.clk(Clk),.rst(Rst),.out(IntSig));//input interrupt signal
 
+load_use_case lucu(.Rsc_IFID(Rsrc_address), .Rdst_IDEX(In[2:0]), .memo_read(In[3]), .stall_signal(stallSignal));
+
+
 assign Out[15:11]=ControlUnitOut[15:11];//ldm immorsingleop std jmp flags
 
 assign Out[10]=(ControlUnitOut[10]||CallSig[1]||IntSig[1])?1:0;//push
@@ -67,7 +71,7 @@ assign Out[3]=(ControlUnitOut[3]||CallSig[1]||IntSig[1])?1:0;//call
 
 assign Out[2:0]=ControlUnitOut[2:0];//memread memwrite wb
 
-assign Out[128]=(CallSig[0]||IntSig[0])?1:0;//stall
+assign Out[128]=(CallSig[0]||IntSig[0]||stallSignal)?1:0;//stall
 assign Out[127]=(CallSig[2]||IntSig[2])?1:0;//second iteration
 assign Out[126]=(CallSig[3]||IntSig[3])?1:0;//flush
 
