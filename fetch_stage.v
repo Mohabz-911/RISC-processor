@@ -1,7 +1,7 @@
 module fetch_stage(In, Out, Clk, Rst);
 localparam number_of_instructions = 5;
 input           Clk, Rst;
-input [73:0]    In;
+input [57:0]    In;
 output [63:0]   Out;
 
 wire [31:0] PC_out, PC_plus;
@@ -35,8 +35,8 @@ register_32bit_PC PC(.Rst(Rst),
                     .InData(PC_plus), 
                     .jumpSignal(jmp_signal), 
                     .Rdst(Rdst), 
-                    .interruptSignal(In[2]), 
-                    .RetRti(In[1]), 
+                    .interruptSignal(In[1]), 
+                    .RetRti(In[2]), 
                     .dataFromWrightBack(In[dataFromWrightBack]) , 
                     .OutData(PC_out));
 
