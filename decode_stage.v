@@ -1,7 +1,7 @@
 module decode_stage (In, Out, writeback, Rst, Clk);
 input [68:0]    In;
 input [20:0]    writeback;
-output [134:0]       Out;
+output [136:0]       Out;
 input           Rst, Clk;
 
 wire [2:0]  Rsrc_address, Rdst_address, WritebackAddress;
@@ -10,7 +10,7 @@ wire WB;
 wire [15:0] Imm_value;
 wire [3:0] CallSig;
 wire [3:0] IntSig;
-wire [19:0] ControlUnitOut;
+wire [21:0] ControlUnitOut;
 wire stallSignal;
 
 
@@ -60,6 +60,10 @@ interupt_control IC(.intSignal(In[4]),.clk(Clk),.rst(Rst),.out(IntSig));//input 
 
 load_use_case lucu(.Rsc_IFID(Rsrc_address), .Rdst_IDEX(In[2:0]), .memo_read(In[3]), .stall_signal(stallSignal));
 
+
+assign Out[136]=ControlUnitOut[21];////CLEAR CARRY
+
+assign Out[135]=ControlUnitOut[20];///SetCARRY
 
 assign Out[15:11]=ControlUnitOut[15:11];//ldm immorsingleop std jmp flags
 

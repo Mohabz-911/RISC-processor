@@ -20,8 +20,8 @@ def to_16Binay(numInHex):
     return string_2
 
 
-file1 = open("D:\CMP\CMP3\ComputerArchitecture\Project\RISC-processor\myFile.txt","r")
-newFile = open("D:\CMP\CMP3\ComputerArchitecture\Project\RISC-processor\\new.txt","w")
+file1 = open("C:\Users\\fathi\OneDrive\Desktop\ARCH\Arch_Project\Arch_Lcal\RISC-processor\myFile.txt","r")
+newFile = open("C:\Users\\fathi\OneDrive\Desktop\ARCH\Arch_Project\Arch_Lcal\RISC-processor\\new.txt","w")
 
 
 # this part to remove comments
@@ -42,8 +42,8 @@ for x in file1:
 file1.close()
 newFile.close()
 
-newFile = open("D:\CMP\CMP3\ComputerArchitecture\Project\RISC-processor\\new.txt","r")
-instructionMemo = open("D:\CMP\CMP3\ComputerArchitecture\Project\RISC-processor\InstructionMemory.txt","w")
+newFile = open("C:\Users\\fathi\OneDrive\Desktop\ARCH\Arch_Project\Arch_Lcal\RISC-processor\\new.txt","r")
+instructionMemo = open("C:\Users\\fathi\OneDrive\Desktop\ARCH\Arch_Project\Arch_Lcal\RISC-processor\InstructionMemory.txt","w")
 
 allLines = []
 isInt = False

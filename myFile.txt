@@ -13,8 +13,9 @@ IN R4                   #FFFFF320
 MOV R3,R5               #R5= FFFFFFFF , flags no change
 SUB R1,R2                #R2= 24
 NOT R3
-LDM R3,5
 MOV R3,R6
 ADD R3,R0
 ADD R0,R0
 ADD R0,R0
+SETC 
+CLRC

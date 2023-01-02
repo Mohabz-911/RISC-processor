@@ -10,7 +10,7 @@ always @(posedge Clk)
 begin
   if(Reset)
     Data <= {N{1'b0}};
-  else if(Enable)
+  else if(!Enable)
     Data<=InData;
   else
     Data<=Data;  

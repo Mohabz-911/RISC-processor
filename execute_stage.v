@@ -1,6 +1,6 @@
 module  execute_stage (
 input [104:0]In, 
-input [25:0]Ctrl, 
+input [27:0]Ctrl, 
 input [39:0]Fwd, 
 output[105:0] Out, 
 input Reset, 
@@ -79,6 +79,13 @@ wire MemWrite;//Passed
 wire WB_Signal; //Passed 
 wire LDM;
 wire MOV;
+
+wire SetC;
+wire ClrC;
+
+
+assign ClrC = Ctrl[27];
+assign SetC = Ctrl[26];
 
 assign ScndIteration = Ctrl[24];
 
@@ -186,7 +193,7 @@ wire [15:0] IntrRdstVal; //THIS WIRE COMES FROM THE MUX WHICH CHOOSE BETWEEN  RE
 
     wire[2:0] InFlags,OutFlags;
 
-    assign InFlags [0]=CF; 
+    assign InFlags [0]=(CF|SetC)&(!ClrC); 
     assign InFlags [1]=NF;
     assign InFlags [2]=ZF;
 

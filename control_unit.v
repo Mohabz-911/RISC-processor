@@ -1,6 +1,6 @@
 module control_unit(In,Output);
 input [15:0]In;
-output [19:0]Output;//kanet 15
+output [21:0]Output;//kanet 15
 
 
 
@@ -36,7 +36,7 @@ In[15:11]==5'b00000||//add
 In[15:11]==5'b00010||//inc
 In[15:11]==5'b00011||//clc
 In[15:11]==5'b00001//setc
-)?1:0;//flag saving
+)?0:1;//flag saving
 //13
 //12
 and(Output[10], ~In[15] ,  In[14], In[13] , ~In[12] , ~In[11]);//push
@@ -71,6 +71,16 @@ In[15:11]==5'b00000||
 In[15:11]==5'b01110||
 In[15:11]==5'b00110
 )?1:0;//WB
+
+
+//////////////////////////////////////////
+////////SET CARRY 
+and(Output[20], ~In[15] , ~In[14], ~In[13] , ~In[12] , In[11]);//SetC
+and(Output[21], ~In[15] , ~In[14], ~In[13] , In[12] , In[11]);//ClrC
+
+
+
+
 
 endmodule
 
