@@ -27,7 +27,7 @@ assign Out[6:0]= (Inp[15:12]==4'b1000)?SUB:
             Inp[15:14]==2'b01 ||
             (Inp[15:14]==2'b11 && !(Inp[13:11]==3'b111)) )? ADD : 7'b0;
 
-assign Out[7]=(Inp[16])?1'b0:1'b1;
+assign Out[7]=1'b1;
 // a faire la derniere signal (control)
 
 endmodule

@@ -19,7 +19,7 @@ wire [59 : 0]  o_MEM_WB;
 buffer #(64)IF_ID((Rst|o_ID_EX[126]), Clk, 1'b1, i_IF_ID, o_IF_ID);
 
 //Buffer between decode stage and execute stage
-buffer #(120)ID_EX((Rst|o_ID_EX[126]), Clk, ~o_ID_EX[134], {i_ID_EX[136:135],i_ID_EX[133:40],i_ID_EX[23:0]}, {o_ID_EX[136:135],o_ID_EX[133:40],o_ID_EX[23:0]});
+buffer #(120)ID_EX((Rst|o_ID_EX[126]), Clk, ((o_ID_EX[134])|(~o_ID_EX[15])), {i_ID_EX[136:135],i_ID_EX[133:40],i_ID_EX[23:0]}, {o_ID_EX[136:135],o_ID_EX[133:40],o_ID_EX[23:0]});
 buffer #(17)ID_EX_2((Rst|o_ID_EX[126]), Clk, 1'b1, {i_ID_EX[134], i_ID_EX[39:24]}, {o_ID_EX[134], o_ID_EX[39:24]});
 
 //Buffer between execute and memory stageS

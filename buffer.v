@@ -10,9 +10,11 @@ assign OutData = Data;
 always @(negedge Clk)
 begin
 if (Rst)
-  Data <= 0;
+  Data = 0;
 else if(En)
-  Data <= InData;
+  Data = InData;
+else
+  Data = Data;
 end
 
 
