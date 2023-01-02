@@ -14,7 +14,7 @@ localparam OR  = 7'b000_1000;
 localparam NOT = 7'b001_0000;
 localparam SHR = 7'b010_0000;
 localparam SHL = 7'b100_0000;
-input [15:0]Inp;
+input [16:0]Inp;
 output [7:0]Out;
 
 assign Out[6:0]= (Inp[15:12]==4'b1000)?SUB:
@@ -27,7 +27,7 @@ assign Out[6:0]= (Inp[15:12]==4'b1000)?SUB:
             Inp[15:14]==2'b01 ||
             (Inp[15:14]==2'b11 && !(Inp[13:11]==3'b111)) )? ADD : 7'b0;
 
-assign Out[7]=1'b1;
+assign Out[7]=(Inp[16])?1'b0:1'b1;
 // a faire la derniere signal (control)
 
 endmodule

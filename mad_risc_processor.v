@@ -6,8 +6,8 @@ input  [15:0]    In;//done
 output [15:0]    Out;//done
 wire [63:0]  i_IF_ID;//done
 wire [63:0]  o_IF_ID;//done
-wire [133 : 0]  i_ID_EX;
-wire [133 : 0]  o_ID_EX;
+wire [134 : 0]  i_ID_EX;
+wire [134 : 0]  o_ID_EX;
 wire [105 : 0]  i_EX_MEM;
 wire [105 : 0]  o_EX_MEM;
 wire [59 : 0]  i_MEM_WB;
@@ -16,16 +16,17 @@ wire [59 : 0]  o_MEM_WB;
 
 //Buffer between fetch stage and decode stage
 //16-bits: Instruction
-buffer #(64)IF_ID((Rst|o_ID_EX[126]), Clk, i_IF_ID, o_IF_ID);
+buffer #(64)IF_ID((Rst|o_ID_EX[126]), Clk, 1'b1, i_IF_ID, o_IF_ID);
 
 //Buffer between decode stage and execute stage
-buffer #(134)ID_EX((Rst|o_ID_EX[126]), Clk, i_ID_EX, o_ID_EX);
+buffer #(118)ID_EX((Rst|o_ID_EX[126]), Clk, ~o_ID_EX[134], {i_ID_EX[133:40],i_ID_EX[23:0]}, {o_ID_EX[133:40],o_ID_EX[23:0]});
+buffer #(17)ID_EX_2((Rst|o_ID_EX[126]), Clk, 1'b1, {i_ID_EX[134], i_ID_EX[39:24]}, {o_ID_EX[134], o_ID_EX[39:24]});
 
 //Buffer between execute and memory stageS
-buffer #(106)EX_MEM((Rst|o_ID_EX[126]), Clk, i_EX_MEM, o_EX_MEM);
+buffer #(106)EX_MEM((Rst|o_ID_EX[126]), Clk, 1'b1, i_EX_MEM, o_EX_MEM);
 
 //Buffer between the memory and writeback stage
-buffer #(60)MEM_WB((Rst|o_ID_EX[126]), Clk, i_MEM_WB, o_MEM_WB);
+buffer #(60)MEM_WB((Rst|o_ID_EX[126]), Clk, 1'b1, i_MEM_WB, o_MEM_WB);
 
 wire [57:0] FetchInput;//****************************
 wire [19:0] WritebackOutput;       //[19]WB + [18:3]data + [2:0]Address
@@ -58,7 +59,7 @@ assign LUCU[2:0] = o_ID_EX[42:40];          //Rdst address
 
 fetch_stage f(.In(FetchInput), .Out(i_IF_ID), .Clk(Clk), .Rst(Rst));
 
-decode_stage d(.In({o_IF_ID,Int,LUCU}), .Out(i_ID_EX), .writeback(WritebackOutput), .Clk(Clk), .Rst(Rst));
+decode_stage d(.In({o_IF_ID,Int,LUCU}), .Out(i_ID_EX), .writeback({o_ID_EX[15], WritebackOutput}), .Clk(Clk), .Rst(Rst));
 //{FetchInput[21:19],FetchInput[1:0],
 //ctrl plus second iteration
 execute_stage e(.In({o_ID_EX[132:130],o_ID_EX[125:24]}), .Ctrl({o_ID_EX[133],o_ID_EX[124],o_ID_EX[23:0]}), .Fwd(ForwardBus), .Out(i_EX_MEM), .CLK(Clk), .Reset(Rst));

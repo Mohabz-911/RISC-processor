@@ -23,8 +23,9 @@ fetch_stage(In, Out, Clk, Rst);
 //Decode Stage
 
 /*
-writeback: 20-bits
+writeback: 21-bits
 
+1-bit:  feedback LDM
 1-bit:  WB signal
 16-bit: Writeback value
 3-bit:  Writeback Address
@@ -43,8 +44,9 @@ In: 69-bits
 
 --------------------------------------------------
 
-Out: (134)-bits
+Out: (135)-bits
 
+1-bit: decodeBufferDisable
 1-bit :MOV
 1-bit :JC
 1-bit :JN

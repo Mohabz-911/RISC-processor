@@ -1,7 +1,7 @@
 module decode_stage (In, Out, writeback, Rst, Clk);
 input [68:0]    In;
-input [19:0]    writeback;
-output [133:0]       Out;
+input [20:0]    writeback;
+output [134:0]       Out;
 input           Rst, Clk;
 
 wire [2:0]  Rsrc_address, Rdst_address, WritebackAddress;
@@ -48,7 +48,7 @@ immediate_control ic(.Inp(In[20:5]), .LDM(1'b0), .Out(Out[39:24])); //immediate 
 
 
 //on continue ici apres immediate
-alu_control_unit a(.Inp(In[20:5]),.Out(Out[23:16]));//alu control +alu control
+alu_control_unit a(.Inp({writeback[20], In[20:5]}),.Out(Out[23:16]));//alu control +alu control
 
 
 // assign Out[19:16] = Rdst_address;//3
@@ -77,5 +77,6 @@ assign Out[126]=(CallSig[3]||IntSig[3])?1:0;//flush
 
 assign Out[132:130]=ControlUnitOut[18:16];//jmps
 assign Out[133]=ControlUnitOut[19];//mov
+assign Out[134] = writeback[20];
 
 endmodule
