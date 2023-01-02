@@ -16,16 +16,16 @@ wire [59 : 0]  o_MEM_WB;
 
 //Buffer between fetch stage and decode stage
 //16-bits: Instruction
-buffer #(64)IF_ID(Rst, Clk, i_IF_ID, o_IF_ID);
+buffer #(64)IF_ID((Rst|o_ID_EX[126]), Clk, i_IF_ID, o_IF_ID);
 
 //Buffer between decode stage and execute stage
-buffer #(134)ID_EX(Rst, Clk, i_ID_EX, o_ID_EX);
+buffer #(134)ID_EX((Rst|o_ID_EX[126]), Clk, i_ID_EX, o_ID_EX);
 
 //Buffer between execute and memory stageS
-buffer #(106)EX_MEM(Rst, Clk, i_EX_MEM, o_EX_MEM);
+buffer #(106)EX_MEM((Rst|o_ID_EX[126]), Clk, i_EX_MEM, o_EX_MEM);
 
 //Buffer between the memory and writeback stage
-buffer #(60)MEM_WB(Rst, Clk, i_MEM_WB, o_MEM_WB);
+buffer #(60)MEM_WB((Rst|o_ID_EX[126]), Clk, i_MEM_WB, o_MEM_WB);
 
 wire [57:0] FetchInput;//****************************
 wire [19:0] WritebackOutput;       //[19]WB + [18:3]data + [2:0]Address
@@ -37,12 +37,12 @@ assign FetchInput[54:39] = In;
 
 assign FetchInput[38:23] = o_EX_MEM[50:35]; //Rsrc value
 //assign FetchInput[22:19] = {o_ID_EX[12],o_ID_EX[132:130]};//jump signals
-assign FetchInput[22]=o_ID_EX[12];
+assign FetchInput[22]=o_EX_MEM[102];
 
 
 assign FetchInput[18:3]=  WritebackOutput[19:4];
-assign FetchInput[2]= o_ID_EX[7] | o_ID_EX[8];
-assign FetchInput[21:19]=o_ID_EX[132:130];
+assign FetchInput[2]= o_EX_MEM[9] | o_EX_MEM[8];  //RTI or RET
+assign FetchInput[21:19]=o_EX_MEM[101:99];  //JC JN JZ
 assign FetchInput[1]=o_ID_EX[129];
 //ret rti stall int 
 assign FetchInput[0]=i_ID_EX[128];

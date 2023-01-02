@@ -93,6 +93,9 @@ decode_stage (In, Out, writeback, Rst, Clk);
 
 /*
 In: (102)-bits
+1-bit :JC
+1-bit :JN
+1-bit :jz
 16-bit: In port
 32-bit: Address of next instruction
 16-bit: Rsrc value
@@ -228,7 +231,7 @@ In: 58-bits
 
 --------------------------------------------
 
-Out: 36-bits
+Out: -bits
 16-bit: Output Port
 16-bit: Writeback value
 3-bit:  Rdst Address

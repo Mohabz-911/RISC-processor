@@ -198,9 +198,9 @@ wire [15:0] IntrRdstVal; //THIS WIRE COMES FROM THE MUX WHICH CHOOSE BETWEEN  RE
     wire JC,JN,CF,NF,JZ,ZF;
 
     
-    assign JC=(OutFlags[0])?1'b1:1'b0;
-    assign JN=(OutFlags[1])?1'b1:1'b0;
-    assign JZ=(OutFlags[2])?1'b1:1'b0;
+    assign JC=In[104];
+    assign JN=In[103];
+    assign JZ=In[102];
 
 /*
 Out: 106-bits

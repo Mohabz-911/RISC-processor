@@ -19,8 +19,8 @@ end
 initial begin
   $dumpfile("ay7aga.vcd");
   $dumpvars(0, mad_risc_processor_test);
-  //for (idx = 0; idx < 2048; idx = idx + 1)$dumpvars(0, mad.m.z.Memory[idx]);
-  In = 16'h0004;
+  for (idx = 0; idx < 2048; idx = idx + 1)$dumpvars(0, mad.m.z.Memory[idx]);
+  In = 16'h000E;
   Int = 0;
   Clk = 0;
   Rst = 1;
@@ -31,9 +31,9 @@ initial begin
   In = 16'hFFFF;
   #20
   In = 16'hF320;
-  #250
+  #150
   In = 16'hAABD;
-  #700
+  #800
   $finish;
 end
 
