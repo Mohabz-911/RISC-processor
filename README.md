@@ -1,2 +1,2 @@
-# RISC-processor
-Designing, implementing and testing a Harvard, RISC-like, five-stages pipeline processor.
+# MAD_RISC-processor
+A RISC-like, five-stage pipelined processor.
